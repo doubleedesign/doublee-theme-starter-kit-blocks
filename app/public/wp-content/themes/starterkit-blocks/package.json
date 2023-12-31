@@ -1,0 +1,68 @@
+{
+	"name": "doublee-theme-starter-kit",
+	"version": "2.0.0",
+	"description": "Custom WordPress theme starter kit",
+	"author": "Double-E Design",
+	"url": "https://github.com/doubleedesign/doublee-theme-starter-kit",
+	"type": "module",
+	"license": "GPL-3.0-or-later",
+	"engines": {
+		"node": ">=14.21.3 || <= 19.x.x"
+	},
+	"scripts": {
+		"lint:css": "stylelint scss/**/*.scss",
+		"lint:css:fix": "stylelint scss/**/*.scss --fix",
+		"lint:js": "eslint js/*.js",
+		"lint:js:fix": "eslint js/*.js --fix",
+		"lint:php": "eslint **/*.php",
+		"lint-staged": "lint-staged",
+		"commit": "lint-staged && cz"
+	},
+	"lint-staged": {
+		"js/*.js": [
+			"eslint js/*.js"
+		],
+		"scss/**/*.scss": [
+			"stylelint"
+		],
+		"**/*.php": [
+			"eslint **/*.php"
+		]
+	},
+	"config": {
+		"commitizen": {
+			"path": "./app/public/wp-content/themes/starterkit/node_modules/cz-conventional-changelog"
+		}
+	},
+	"devDependencies": {
+		"@doubleedesign/animate-into-view": "^1.0.0",
+		"@doubleedesign/hover.css": "https://github.com/doubleedesign/Hover.css#1.0.1",
+		"@valtech-commerce/json-to-scss": "^1.0.1",
+		"@wordpress/eslint-plugin": "^14.12.0",
+		"@wordpress/stylelint-config": "^21.31.0",
+		"commitizen": "^4.3.0",
+		"cz-conventional-changelog": "^3.3.0",
+		"eslint": "^8.56.0",
+		"eslint-plugin-html": "^7.1.0",
+		"eslint-plugin-php-markup": "^6.0.0",
+		"gulp": "^4.0.2",
+		"gulp-concat": "^2.6.1",
+		"gulp-dart-sass": "^1.1.0",
+		"gulp-rollup-2": "^1.3.1",
+		"gulp-sass-glob": "^1.1.0",
+		"gulp-sourcemaps": "^3.0.0",
+		"lint-staged": "^13.3.0",
+		"stylelint": "^14.2.0",
+		"stylelint-scss": "^5.3.2"
+	},
+	"resolutions": {
+		"chokidar": "^3.5.2",
+		"glob-parent": "^6.0.2",
+		"postcss": "^8.3.11",
+		"@gulp-sourcemaps/identity-map": "^2.0.1"
+	},
+	"overrides": {
+		"glob-parent": "^6.0.2",
+		"postcss": "^8.3.11"
+	}
+}

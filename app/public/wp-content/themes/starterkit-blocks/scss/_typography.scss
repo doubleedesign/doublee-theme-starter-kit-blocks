@@ -1,0 +1,149 @@
+.entry-content {
+	line-height: 1.2;
+
+	@include media-breakpoint-up(md) {
+		font-size: map-get($font-sizes, 'sm');
+		line-height: 1.45;
+	}
+
+	h1,
+	h2,
+	h3 {
+		font-weight: map-get($font-weights, 'bold');
+	}
+
+	h1 {
+		font-size: map-get($font-sizes, 'lg');
+		margin-bottom: map-get($spacing, 'sm');
+
+		@include media-breakpoint-up(md) {
+			font-size: map-get($font-sizes, 'xl');
+		}
+
+		@include media-breakpoint-up(lg) {
+			font-size: map-get($font-sizes, 'xxl');
+		}
+	}
+
+	h2 {
+		font-size: map-get($font-sizes, 'md');
+		margin-bottom: map-get($spacing, 'sm');
+
+		@include media-breakpoint-up(md) {
+			font-size: map-get($font-sizes, 'lg');
+			margin-bottom: map-get($spacing, 'lg');
+		}
+	}
+
+	h3 {
+		font-size: map-get($font-sizes, 'sm');
+		margin-bottom: map-get($spacing, 'sm');
+
+		@include media-breakpoint-up(md) {
+			font-size: map-get($font-sizes, 'md');
+		}
+	}
+
+	p,
+	ul,
+	ol {
+		@include gutter-margin-bottom(0.5);
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	p.lead {
+		font-size: map-get($font-sizes, 'md');
+		font-weight: map-get($font-weights, 'bold');
+	}
+
+	ul {
+		list-style: disc outside;
+		margin-left: 1em;
+	}
+
+	ol {
+		list-style: decimal outside;
+		margin-left: 1em;
+	}
+
+	img {
+		max-width: 100%;
+	}
+
+	.wp-caption {
+		width: 100%;
+		max-width: 100%;
+
+		img {
+			height: auto;
+		}
+
+		.wp-caption-text {
+			text-align: center;
+			font-size: map-get($font-sizes, 'xs');
+			color: map-get($greys, '700');
+			font-style: italic;
+			padding-bottom: map-get($spacing, 'xs');
+			border-bottom: 1px solid map-get($greys, '300');
+			margin-bottom: map-get($spacing, 'lg');
+		}
+	}
+
+	blockquote {
+		background: map-get($colours, 'light');
+		padding: map-get($spacing, 'md');
+		border-left: 0.25rem solid map-get($colours, 'primary');
+		@include gutter-margin-top(0.5);
+		@include gutter-margin-bottom(0.5);
+
+		@include media-breakpoint-up(lg) {
+			padding: map-get($spacing, 'xl');
+		}
+	}
+
+	.address {
+		display: block;
+		margin-bottom: map-get($spacing, 'md');
+
+		&__row {
+			display: flex;
+			margin-bottom: map-get($spacing, 'sm');
+
+			&__icon {
+				margin-right: 0.25rem;
+				width: rem(26px);
+				flex-basis: rem(26px);
+				display: flex;
+				justify-content: center;
+				align-items: flex-start;
+
+				i {
+					font-size: 1.5rem;
+
+					&.fa-mobile-screen {
+						font-size: rem(22px);
+					}
+				}
+			}
+
+			&__item {
+				flex-grow: 1;
+
+				span {
+					margin-right: 0.25rem;
+				}
+
+				span[itemprop='alternateName'],
+				span[itemprop='streetAddress'] {
+					display: block;
+					width: 100%;
+					flex-basis: 100%;
+				}
+			}
+		}
+	}
+
+}

@@ -1,0 +1,245 @@
+.site-header {
+	@include gutter-padding-top(0.5);
+	@include gutter-padding-bottom(0.5);
+	position: relative;
+	z-index: 200;
+	box-shadow: 0 0 0.5rem 0 map-get($greys, '500');
+
+	.row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		@include media-breakpoint-up(md) {
+			justify-content: center;
+		}
+
+		@include media-breakpoint-up(lg) {
+			justify-content: space-between;
+		}
+	}
+
+	&__menu-toggle {
+		display: flex;
+		justify-content: flex-end;
+		position: relative;
+		z-index: 200;
+
+		@include media-breakpoint-up(md) {
+			display: none;
+		}
+
+		.btn {
+			font-size: map-get($font-sizes, 'md');
+		}
+	}
+
+	&__logo {
+
+		&__image {
+			max-width: rem(180px);
+
+			@include media-breakpoint-up(md) {
+				margin: 0 auto;
+			}
+
+			@include media-breakpoint-up(lg) {
+				margin: 0;
+			}
+
+			img,
+			svg {
+				display: block;
+				width: 100%;
+			}
+		}
+
+		&__text {
+
+			@include media-breakpoint-up(md) {
+				text-align: center;
+			}
+
+			@include media-breakpoint-up(lg) {
+				text-align: left;
+			}
+
+			a {
+				display: block;
+				color: map-get($colours, 'primary');
+				font-weight: map-get($font-weights, 'bold');
+				font-size: map-get($font-sizes, 'lg');
+				text-decoration-color: transparent;
+
+				@include hover-focus-active {
+					text-decoration-color: currentColor;
+				}
+			}
+		}
+	}
+
+	&__nav {
+		position: relative;
+		z-index: 100;
+		padding-top: rem(80px);
+
+		@include media-breakpoint-down(md) {
+			transition: transform 0.3s ease;
+			width: 100vw;
+			height: 100vh;
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		@include media-breakpoint-down(sm) {
+			transform: translateX(-100vw);
+		}
+
+		@include media-breakpoint-between(sm, md) {
+			width: 50vw;
+			transform: translateX(-50vw);
+		}
+
+		&--open {
+			transform: translateX(0);
+		}
+
+		@include media-breakpoint-up(md) {
+			padding-top: 0;
+			background: transparent;
+			position: relative;
+			height: auto;
+			transform: none;
+		}
+
+		&__menu {
+			display: block;
+			text-align: center;
+
+			@include media-breakpoint-up(md) {
+				display: flex;
+				justify-content: center;
+				text-align: left;
+			}
+
+			@include media-breakpoint-up(lg) {
+				justify-content: flex-end;
+			}
+
+			li {
+				display: block;
+				padding: 0 map-get($spacing, 'sm');
+				position: relative;
+
+				@include media-breakpoint-up(md) {
+					display: inline-flex;
+				}
+
+				@include media-breakpoint-up(lg) {
+					padding: 0 map-get($spacing, 'lg');
+				}
+
+				> a {
+					display: block;
+					font-weight: map-get($font-weights, 'semibold');
+					text-decoration: none;
+					padding: map-get($spacing, 'md') 0;
+					border-bottom: 2px solid transparent;
+					transition: border 0.3s ease, color 0.3s ease;
+					@include underline-from-center(currentColor);
+					overflow: visible;
+
+					&:before {
+						height: 2px;
+						bottom: 0;
+
+						@include media-breakpoint-up(md) {
+							bottom: -2px;
+						}
+					}
+
+					@include hover-focus-active {
+						color: map-get($colours, 'primary');
+					}
+
+					@include media-breakpoint-up(md) {
+
+						@include hover-focus-active {
+						}
+					}
+				}
+
+				&.current-menu-item,
+				&.current_page_item,
+				&.current_page_parent {
+
+					> a {
+						color: map-get($colours, 'primary');
+
+						@include media-breakpoint-up(md) {
+							border-bottom-color: map-get($colours, 'primary');
+						}
+					}
+				}
+
+				> .sub-menu {
+					height: 0;
+					overflow: hidden;
+					transition: height 0.3s ease-in-out;
+					background: map-get($colours, 'white');
+					text-align: center;
+					position: relative;
+					float: none;
+					border-radius: 0;
+					width: 100%;
+					flex-basis: 100%;
+
+					@media (prefers-reduced-motion) {
+						transition: none;
+					}
+
+					@include media-breakpoint-up(md) {
+						width: rem(180px);
+						box-shadow: 0 0 0.25rem 0 map-get($greys, '500');
+						flex-basis: auto;
+						text-align: left;
+						position: absolute;
+						top: 100%;
+						left: 0;
+					}
+
+					.menu-item {
+						width: 100%;
+						padding: 0;
+
+						a {
+							display: block;
+							width: 100%;
+							text-decoration: underline;
+							text-decoration-color: transparent;
+							transition: all 0.3s ease-in-out;
+							padding: map-get($spacing, 'md');
+
+							&:before {
+								content: none;
+							}
+
+							@include media-breakpoint-up(md) {
+								text-align: left;
+							}
+
+							@include hover-focus-active {
+								text-decoration-color: currentColor;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

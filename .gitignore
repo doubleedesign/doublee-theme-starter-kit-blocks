@@ -1,0 +1,23 @@
+conf/*
+logs/*
+
+# ignore things that aren't the theme
+app/public/*.php
+app/public/readme.html
+app/public/license.txt
+app/public/.htaccess
+app/public/wp-admin
+app/public/wp-includes
+app/public/wp-content/index.php
+app/public/wp-content/plugins
+app/public/wp-content/uploads
+app/public/wp-content/themes/index.php
+!app/public/wp-content/themes/starterkit-blocks
+
+# ignore node dependency directories
+node_modules
+
+# ignore log files and databases
+*.log
+*.sql
+*.sqlite

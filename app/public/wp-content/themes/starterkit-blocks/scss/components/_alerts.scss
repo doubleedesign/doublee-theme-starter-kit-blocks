@@ -1,0 +1,21 @@
+.alert {
+	width: 100%;
+	flex-basis: 100%;
+	margin-bottom: map-get($spacing, 'md');
+
+	@each $color, $value in $colours {
+		&--#{$color} {
+			background: rgba($value, 0.1);
+			border: 1px solid $value;
+			padding: 1rem;
+			color: darken($value, 20%);
+		}
+	}
+
+	p {
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}

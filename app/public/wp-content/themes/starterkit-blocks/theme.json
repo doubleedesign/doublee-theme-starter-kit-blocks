@@ -1,0 +1,95 @@
+{
+	"greys": {
+		"100": "#F8F9FA",
+		"200": "#E9ECEF",
+		"300": "#DEE2E6",
+		"400": "#CED4DA",
+		"500": "#ADB5BD",
+		"600": "#6C757D",
+		"700": "#495057",
+		"800": "#343A40",
+		"900": "#212529"
+	},
+	"colours": {
+		"primary": "#795EBD",
+		"secondary": "#00C9B9",
+		"accent": "#C5488D",
+		"success": "#00C9B9",
+		"info": "#00A7C9",
+		"warning": "#FF8D00",
+		"alert": "#A63469",
+		"light": "#EDECF3",
+		"dark": "#1B1063",
+		"white": "#FFF",
+		"black": "#000"
+	},
+	"min-contrast-ratio": "3",
+	"white": "#FFF",
+	"black": "#000",
+	"color-contrast-dark": "$black",
+	"color-contrast-light": "$white",
+	"font-sizes": {
+		"xs": "0.833rem",
+		"sm": "1rem",
+		"md": "1.44rem",
+		"lg": "1.728rem",
+		"xl": "2.074rem",
+		"xxl": "2.488rem",
+		"display": "2.986rem"
+	},
+	"font-weights": {
+		"light": 300,
+		"normal": 300,
+		"semibold": 500,
+		"bold": 700
+	},
+	"font-family-sans-serif": "'ibm-plex-sans', 'Segoe UI', 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', 'arial', 'sans-serif'",
+	"font-family-serif": "'Georgia', 'Times New Roman', serif",
+	"font-family-monospace": "'sfmono-regular', menlo, monaco, consolas, Liberation Mono, monospace",
+	"body-font-family": "$font-family-sans-serif",
+	"heading-font-family": "'Gelica', 'IBM Plex Sans', 'Segoe UI', 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', 'arial', 'sans-serif'",
+	"gutters": {
+		"xs": "0.5rem",
+		"sm": "0.5rem",
+		"md": "1rem",
+		"lg": "1rem",
+		"xl": "1.5rem",
+		"xxl": "1.5rem"
+	},
+	"spacing": {
+		"xs": "0.25rem",
+		"sm": "0.5rem",
+		"md": "0.75rem",
+		"lg": "1rem",
+		"xl": "1.5rem",
+		"xxl": "2rem"
+	},
+	"grid-breakpoints": {
+		"xs": "300px",
+		"sm": "620px",
+		"md": "768px",
+		"lg": "992px",
+		"xl": "1200px",
+		"xxl": "1400px"
+	},
+	"container-max-widths": {
+		"xs": "576px",
+		"sm": "576px",
+		"md": "720px",
+		"lg": "960px",
+		"xl": "1140px",
+		"xxl": "1280px"
+	},
+	"grid-columns": 12,
+	"grid-gutter-width": "1.5rem",
+	"grid-row-columns": 6,
+	"container-padding-x": "$grid-gutter-width",
+	"aspect-ratios": {
+		"1x1": "100%",
+		"4x3": "calc(3 / 4 * 100%)",
+		"16x9": "calc(9 / 16 * 100%)",
+		"21x9": "calc(9 / 21 * 100%)"
+	},
+	"enable-container-classes": "true",
+	"enable-grid-classes": "true"
+}

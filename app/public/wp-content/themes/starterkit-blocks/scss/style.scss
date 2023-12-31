@@ -1,0 +1,22 @@
+/*!
+Theme Name:     Double-E Starter Kit - Blocks
+Description:    A starter kit for WordPress theme development using the Block Editor.
+Author:         Leesa Ward
+Author URI:     https://www.doubleedesign.com.au
+Theme URI:      https://github.com/doubleedesign/doublee-dev-starterkit-blocks
+Version:        2.0.1
+Text Domain:    starterkit
+*/
+
+@import '../node_modules/@doubleedesign/hover.css/hover';
+@import '../node_modules/@doubleedesign/animate-into-view/dist/animate-into-view.css';
+@import 'variables';
+@import 'core/functions';
+@import 'core/reset';
+@import 'core/bootstrap/bootstrap-grid';
+@import 'core/bootstrap/transitions';
+@import 'core/mixins';
+@import 'common';
+@import 'typography';
+@import 'layout/*';
+@import 'components/*';

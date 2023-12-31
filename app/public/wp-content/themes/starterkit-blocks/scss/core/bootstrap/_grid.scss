@@ -1,0 +1,17 @@
+// Row
+// Rows contain your columns.
+
+@if $enable-grid-classes {
+
+	.row {
+		@include make-row();
+		padding-left: map-get($spacing, 'sm');
+		padding-right: map-get($spacing, 'sm');
+
+		> * {
+			@include make-col-ready();
+		}
+	}
+
+	@include make-grid-columns();
+}

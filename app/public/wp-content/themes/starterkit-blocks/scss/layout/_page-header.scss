@@ -1,0 +1,11 @@
+.page-header {
+	position: relative;
+
+	h1 {
+		margin-bottom: 0;
+	}
+}
+
+.breadcrumbs + .page-header {
+	padding-top: 0;
+}

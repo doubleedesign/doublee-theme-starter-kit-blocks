@@ -1,0 +1,3 @@
+[submodule "app/public/wp-content/plugins/doublee-plugin-framework"]
+	path = app/public/wp-content/plugins/doublee-plugin-framework
+	url = https://github.com/doubleedesign/doublee-plugin-framework

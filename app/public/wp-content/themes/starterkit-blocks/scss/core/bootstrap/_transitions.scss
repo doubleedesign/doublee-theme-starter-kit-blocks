@@ -1,0 +1,23 @@
+.fade {
+	transition: opacity 0.15s linear;
+	
+	&:not(.show) {
+		opacity: 0;
+	}
+}
+
+// scss-docs-start collapse-classes
+.collapse {
+	
+	&:not(.show) {
+		display: none;
+	}
+}
+
+.collapsing {
+	height: 0;
+	overflow: hidden;
+	transition: height 0.3s ease;
+}
+
+// scss-docs-end collapse-classes

@@ -1,0 +1,112 @@
+.btn {
+	display: inline-block;
+	appearance: none;
+	padding: map-get($spacing, 'md') map-get($spacing, 'lg');
+	line-height: 1;
+	border: 0;
+	font-family: $font-family-sans-serif;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+	text-decoration: transparent underline;
+	font-weight: map-get($font-weights, 'semibold');
+
+	@include hover-focus-active {
+		text-decoration-color: currentColor;
+	}
+
+	&-icon {
+		text-decoration: none;
+
+		span {
+			text-decoration: transparent underline;
+		}
+
+		@include hover-focus-active {
+
+			span {
+				text-decoration-color: currentColor;
+			}
+		}
+
+		.fa-arrow-right {
+			position: relative;
+			top: 1px;
+			transition: transform 0.3s ease;
+		}
+
+		@include hover-focus-active {
+
+			.fa-arrow-right {
+				transform: translateX(0.25rem);
+			}
+		}
+	}
+
+	&-large {
+		font-size: map-get($font-sizes, 'md');
+		padding: map-get($spacing, 'md') map-get($spacing, 'xl');
+	}
+}
+
+// Colour specified on the button
+@each $colour, $value in $colours {
+
+	.btn--#{$colour} {
+		background: $value;
+		color: color-contrast($value);
+		border: 1px solid $value;
+		@include sweep-to-right(darken($value, 15%));
+
+		@include hover-focus-active {
+			color: color-contrast(darken($value, 15%));
+			border-color: darken($value, 15%);
+			text-decoration-color: currentColor;
+		}
+	}
+
+	.btn--#{$colour}--hollow {
+		color: $value;
+		border: 1px solid $value;
+		background: transparent;
+		@include sweep-to-right($value);
+
+		@include hover-focus-active {
+			color: color-contrast($value);
+			border-color: $value;
+		}
+	}
+}
+
+// Defaults based on container background colour (using bg-* classes)
+@each $colour, $value in $colours {
+
+	.bg-#{$colour} {
+
+		.btn:not([class*='btn--']) {
+			@if color-contrast($value) == #FFF {
+				@extend .btn--white;
+			} @else {
+				@extend .btn--primary;
+			}
+		}
+
+		.btn--hollow:not([class*='btn--hollow--']) {
+			@if color-contrast($value) == #FFF {
+				@extend .btn--white--hollow;
+			} @else {
+				@extend .btn--primary--hollow;
+			}
+		}
+	}
+}
+
+.bg-transparent {
+
+	.btn:not([class*='btn--']) {
+		@extend .btn--primary;
+	}
+
+	.btn--hollow:not([class*='btn--hollow--']) {
+		@extend .btn--primary--hollow;
+	}
+}

@@ -1,0 +1,33 @@
+@import '../node_modules/@doubleedesign/hover.css/hover';
+@import 'variables';
+@import 'core/functions';
+@import 'core/bootstrap/bootstrap-grid';
+@import 'core/mixins';
+@import 'typography';
+@import 'components/buttons';
+
+body.mce-content-body {
+	padding: 20px !important;
+	font-family: $font-family-sans-serif;
+	@extend .entry-content;
+
+	a {
+		color: map-get($colours, 'accent');
+		transition: color 0.3s ease, text-decoration-color 0.3s ease, background 0.3s ease;
+		text-decoration-color: rgba(map-get($colours, 'accent'), 0.3);
+
+		@include hover-focus-active {
+			color: map-get($colours, 'primary');
+			text-decoration-color: currentcolor;
+		}
+	}
+
+	small {
+		font-size: map-get($font-sizes, 'xs');
+	}
+
+	img,
+	svg {
+		max-width: 100%;
+	}
+}
