@@ -12,7 +12,7 @@ class Starterkit_Frontend {
 		new Starterkit_Content_Handling();
 
 		add_action('wp_enqueue_scripts', [$this, 'enqueue_frontend']);
-		add_action('admin_init', [$this, 'editor_css']);
+		add_action('enqueue_block_editor_assets', [$this, 'editor_css']);
 		add_action('admin_enqueue_scripts', [$this, 'admin_css']);
 	}
 
@@ -53,7 +53,8 @@ class Starterkit_Frontend {
 	 * @return void
 	 */
 	function editor_css(): void {
-		add_editor_style(get_template_directory_uri() . '/styles-editor.css');
+		add_theme_support('wp-block-styles');
+		wp_enqueue_style('starterkit-editor-styles', get_stylesheet_directory_uri() . '/styles-editor.css', THEME_VERSION);
 	}
 
 

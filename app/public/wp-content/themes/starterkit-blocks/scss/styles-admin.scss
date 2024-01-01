@@ -1,5 +1,22 @@
 @import 'variables';
 
-.editor-styles-wrapper.block-editor-writing-flow {
+.edit-post-visual-editor {
 	padding: 2rem;
+	background: transparent;
+
+	.wp-block {
+		border: 2px dotted map-get($greys, '300');
+		transition: border 0.2s ease;
+		padding: 0.25rem;
+		box-sizing: border-box;
+
+		&:hover,
+		&:focus-visible {
+			border-color: map-get($greys, '500');
+		}
+
+		&:focus {
+			border-style: solid;
+		}
+	}
 }

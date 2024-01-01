@@ -3,6 +3,7 @@ require_once('class-admin.php');
 require_once('class-media.php');
 require_once('class-menus.php');
 require_once('class-utils.php');
+require_once('class-block-editor.php');
 
 /**
  * The CMS-specific settings and customisations for the theme.
@@ -15,5 +16,6 @@ class Starterkit_CMS {
 		new Starterkit_Admin();
 		new Starterkit_Menus();
 		new Starterkit_Media();
+		new Starterkit_Block_Editor();
 	}
 }

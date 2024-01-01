@@ -6,8 +6,8 @@
  * @package starterkit
  */
 
-require_once('cms/class-cms.php');
-require_once('frontend/class-frontend.php');
+require_once('inc/cms/class-cms.php');
+require_once('inc/frontend/class-frontend.php');
 new Starterkit_CMS();
 new Starterkit_Frontend();
 

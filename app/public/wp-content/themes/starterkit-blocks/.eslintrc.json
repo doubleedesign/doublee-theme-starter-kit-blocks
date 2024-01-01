@@ -24,7 +24,8 @@
 		"func-call-spacing": ["error", "never"],
 		"quotes": ["warn", "single"],
 		"brace-style": [2, "stroustrup", { "allowSingleLine": false }],
-		"linebreak-style": ["warn", "windows"]
+		"linebreak-style": ["warn", "windows"],
+		"space-unary-ops": ["warn", { "words": true, "nonwords": false }]
 	},
 	"settings": {
 		"php/php-extensions": [".php"],

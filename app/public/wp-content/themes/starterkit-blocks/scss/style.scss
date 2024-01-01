@@ -4,7 +4,7 @@ Description:    A starter kit for WordPress theme development using the Block Ed
 Author:         Leesa Ward
 Author URI:     https://www.doubleedesign.com.au
 Theme URI:      https://github.com/doubleedesign/doublee-dev-starterkit-blocks
-Version:        2.0.1
+Version:        0.1.0
 Text Domain:    starterkit
 */
 
@@ -20,3 +20,6 @@ Text Domain:    starterkit
 @import 'typography';
 @import 'layout/*';
 @import 'components/*';
+@import 'blocks/*';
+@import 'blocks/core/*';
+@import 'blocks/custom/*';

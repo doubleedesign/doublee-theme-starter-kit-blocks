@@ -47,7 +47,7 @@ class Starterkit_Admin {
 		remove_action('plugins_loaded', '_wp_customize_include');
 		remove_action('admin_enqueue_scripts', '_wp_customize_loader_settings', 11);
 		add_action('load-customize.php', [$this, 'override_load_customizer_action']);
-		add_action('admin_init', [$this, 'remove_customiser_from_menu'], 999);
+		add_action('admin_init', [$this, 'remove_customiser_from_menu'], 99);
 	}
 
 	#[NoReturn] function override_load_customizer_action(): void {
@@ -55,8 +55,8 @@ class Starterkit_Admin {
 	}
 
 	function remove_customiser_from_menu(): void {
-		remove_submenu_page('themes.php', 'customize.php?return=' . urlencode($_SERVER['SCRIPT_NAME']));
-		remove_submenu_page('themes.php', 'customize.php?return=%2Fwp-admin%2F');
+		$customize_url = add_query_arg('return', urlencode(remove_query_arg(wp_removable_query_args(), wp_unslash($_SERVER['REQUEST_URI']))), 'customize.php');
+		remove_submenu_page('themes.php', $customize_url);
 	}
 
 
@@ -71,7 +71,7 @@ class Starterkit_Admin {
 		wp_enqueue_style('starterkit-fonts', 'https://use.typekit.net/gwg0cmn.css');
 	}
 
-
+	
 	/**
 	 * Customise login screen logo
 	 * @wp-hook

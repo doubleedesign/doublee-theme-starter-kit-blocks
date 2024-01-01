@@ -34,15 +34,17 @@ class Starterkit_Menus {
 		// Route that gets the registered menu locations,
 		// really just to check what they are from the API if needed
 		register_rest_route('wp/v2', '/menus', array(
-			'methods'  => 'GET',
-			'callback' => 'get_registered_nav_menus'
-			// if you're wondering where this is, it's a built-in WP function
+			'methods'             => 'GET',
+			// if you're wondering where get_registered_nav_menus is, it's a built-in WP function
+			'callback'            => 'get_registered_nav_menus',
+			'permission_callback' => '__return_true'
 		));
 
 		// Route that gets a complete menu by location key (passed as a parameter to get_menu)
 		register_rest_route('wp/v2', '/menu', array(
-			'methods'  => 'GET',
-			'callback' => 'get_menu'
+			'methods'             => 'GET',
+			'callback'            => 'get_menu',
+			'permission_callback' => '__return_true'
 		));
 
 		/**

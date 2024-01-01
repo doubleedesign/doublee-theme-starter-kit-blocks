@@ -1,10 +1,12 @@
 <?php
 
 class Starterkit_Content_Handling {
+
 	public function __construct() {
 		add_filter('template_include', [$this, 'reroute_to_404']);
 		add_action('template_redirect', [$this, 'redirect_to_url']);
 	}
+
 
 	/**
 	 * Reroute page to 404 as per ACF field page_inaccessible

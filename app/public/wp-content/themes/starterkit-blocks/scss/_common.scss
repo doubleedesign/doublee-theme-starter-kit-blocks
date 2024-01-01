@@ -70,18 +70,12 @@ svg {
 	}
 }
 
-.module,
-.pseudo-module {
-	@include gutter-padding-top(1.5);
-	@include gutter-padding-bottom(1.5);
-}
-
 @each $colour, $value in $colours {
 	.bg-#{$colour} {
 		background: $value;
 
-		&.module + .module.bg-#{$colour},
-		&.module + .module.bg-#{$colour} {
+		&.block + .block.bg-#{$colour},
+		&.block + .block.bg-#{$colour} {
 			padding-top: 0;
 		}
 
