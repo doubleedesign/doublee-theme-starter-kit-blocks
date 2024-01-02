@@ -34,9 +34,13 @@ class Starterkit_Block_Editor {
 
 
 	/**
-	 * Load ACF field groups for custom blocks
+	 * Load ACF field groups for custom blocks from their folders
+	 *
+	 * @param $paths
+	 *
+	 * @return array
 	 */
-	function load_acf_field_groups_from_block_folders($paths) {
+	function load_acf_field_groups_from_block_folders($paths): array {
 		$block_folders = array_diff(scandir(dirname(__DIR__, 2) . '/blocks/custom/'), ['.', '..']);
 		foreach($block_folders as $block) {
 			$paths[] = dirname(__DIR__, 2) . '/blocks/custom/' . $block;
@@ -46,6 +50,13 @@ class Starterkit_Block_Editor {
 	}
 
 
+	/**
+	 * Save ACF field groups for custom blocks in their folders
+	 *
+	 * @param $group
+	 *
+	 * @return void
+	 */
 	function save_acf_field_groups_to_block_folders($group): void {
 		$block_folders = array_diff(scandir(dirname(__DIR__, 2) . '/blocks/custom/'), ['.', '..']);
 		foreach($block_folders as $block) {
