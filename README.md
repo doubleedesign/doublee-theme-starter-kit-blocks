@@ -1,4 +1,4 @@
-# Double-E WP Theme Starterkit (Block Editor version) (WIP)
+# Double-E WP Theme Starterkit (Block Editor edition)
 
 **A WordPress theme starterkit for developers of bespoke websites.**
 
