@@ -20,6 +20,4 @@ Text Domain:    starterkit
 @import 'typography';
 @import 'layout/*';
 @import 'components/*';
-@import 'blocks/*';
-@import 'blocks/core/*';
-@import 'blocks/custom/*';
+@import '../partials/blocks/**/*';

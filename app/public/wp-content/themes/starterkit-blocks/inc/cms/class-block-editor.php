@@ -6,6 +6,9 @@
 class Starterkit_Block_Editor {
 
 	public function __construct() {
+		add_action('init', [$this, 'register_custom_blocks']);
+		add_filter('acf/settings/load_json', [$this, 'load_acf_field_groups_from_block_folders']);
+		add_action('acf/update_field_group', [$this, 'save_acf_field_groups_to_block_folders'], 1);
 		add_filter('allowed_block_types_all', [$this, 'allowed_blocks'], 10, 2);
 		add_action('enqueue_block_editor_assets', [$this, 'disable_editor_fullscreen_mode']);
 		add_action('after_setup_theme', [$this, 'disable_block_patterns']);
@@ -18,7 +21,49 @@ class Starterkit_Block_Editor {
 
 
 	/**
-	 * Limit available blocks for simplicity
+	 * Register custom blocks
+	 * @return void
+	 * @uses Advanced Custom Fields Pro
+	 */
+	function register_custom_blocks(): void {
+		$block_folders = array_diff(scandir(dirname(__DIR__, 2) . '/blocks/custom/'), ['.', '..']);
+		foreach($block_folders as $folder) {
+			register_block_type(dirname(__DIR__, 2) . '/blocks/custom/' . $folder);
+		}
+	}
+
+
+	/**
+	 * Load ACF field groups for custom blocks
+	 */
+	function load_acf_field_groups_from_block_folders($paths) {
+		$block_folders = array_diff(scandir(dirname(__DIR__, 2) . '/blocks/custom/'), ['.', '..']);
+		foreach($block_folders as $block) {
+			$paths[] = dirname(__DIR__, 2) . '/blocks/custom/' . $block;
+		}
+
+		return $paths;
+	}
+
+
+	function save_acf_field_groups_to_block_folders($group): void {
+		$block_folders = array_diff(scandir(dirname(__DIR__, 2) . '/blocks/custom/'), ['.', '..']);
+		foreach($block_folders as $block) {
+			if($group['key'] === 'group_' . $block) {
+				// initially remove this filter so it will not affect other groups
+				remove_filter('acf/settings/save_json', 'save_acf_field_groups_to_block_folders', 9999);
+
+				// override save path in this case
+				add_filter('acf/settings/save_json', function($path) use ($block) {
+					return dirname(__DIR__, 2) . '/blocks/custom/' . $block . '/';
+				}, 9999);
+			}
+		}
+	}
+
+
+	/**
+	 * Limit available core blocks for simplicity
 	 *
 	 * @param $allowed_block_types
 	 * @param $block_editor_context
@@ -26,68 +71,26 @@ class Starterkit_Block_Editor {
 	 * @return mixed
 	 */
 	function allowed_blocks($allowed_block_types, $block_editor_context): array {
+		$all_block_types = WP_Block_Type_Registry::get_instance()->get_all_registered();
+		$custom_block_types = array_filter($all_block_types, function($block_type) {
+			return str_starts_with($block_type->name, 'custom/');
+		});
 
-		return array(
-			'core/paragraph',
-			'core/heading',
-			'core/list',
-			'core/image',
-			'core/gallery',
-			//'core/quote',
-			//'core/audio',
-			'core/cover',
-			'core/file',
-			//'core/video',
-			'core/table',
-			//'core/verse',
-			//'core/code',
-			//'core/freeform', // Classic Editor block
-			//'core/html',
-			//'core/preformatted',
-			//'core/pullquote',
-			'core/media-text',
-			//'core/more',
-			//'core/nextpage',
-			'core/separator',
-			//'core/spacer',
-			//'core/shortcode',
-			//'core/archives',
-			//'core/categories',
-			//'core/latest-comments',
-			'core/latest-posts',
-			//'core/calendar',
-			//'core/rss',
-			//'core/search',
-			//'core/tag-cloud',
-			//'core/embed',
-			'core-embed/twitter',
-			'core-embed/youtube',
-			'core-embed/facebook',
-			'core-embed/instagram',
-			//'core-embed/wordpress',
-			//'core-embed/soundcloud',
-			//'core-embed/spotify',
-			//'core-embed/flickr',
-			'core-embed/vimeo',
-			//'core-embed/animoto',
-			//'core-embed/cloudup',
-			//'core-embed/collegehumor',
-			//'core-embed/dailymotion',
-			//'core-embed/funnyordie',
-			//'core-embed/hulu',
-			//'core-embed/imgur',
-			//'core-embed/issuu',
-			//'core-embed/kickstarter',
-			//'core-embed/meetup-com',
-			//'core-embed/mixcloud',
-			//'core-embed/photobucket',
-			//'core-embed/polldaddy',
-			//'core-embed/reddit',
-			//'core-embed/reverbnation',
-			//'core-embed/screencast',
-			//'core-embed/scribd',
-			//'core-embed/slideshare',
-			//'core-embed/smugmug',
+		return array_merge(
+			array_column($custom_block_types, 'name'),
+			array(
+				'core/columns',
+				'core/cover',
+				'core/image',
+				'core/table',
+				'core/media-text',
+				'core/separator',
+				'core-embed/twitter',
+				'core-embed/youtube',
+				'core-embed/facebook',
+				'core-embed/instagram',
+				'core-embed/vimeo',
+			)
 		);
 	}
 

@@ -120,6 +120,19 @@ gulp.task('editor-css', (done) => {
 		.pipe(sass())
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('./'));
+
+	gulp.src('./partials/blocks/common.scss')
+		.pipe(sourcemaps.init())
+		.pipe(sass())
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest('./partials/blocks/'));
+
+	gulp.src('./partials/blocks/custom/**/*.scss')
+		.pipe(sourcemaps.init())
+		.pipe(sass())
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest('./partials/blocks/custom/'));
+
 	done();
 });
 

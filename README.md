@@ -8,11 +8,9 @@ For classic themes using ACF Flexible Content, check out my (more mature) [class
 
 ---
 
-## Working with this starter kit
+The development process using this starter kit is largely the same as my classic one, with some adaptations for the block editor.
 
-The development process is largely the same as my classic starterkit, with some adaptations for the block editor.
-
-### Getting started
+## Getting started
 
 - Fork this repo, set it up in your IDE, and rename `starterkit` and `Starterkit` everywhere to your own theme name (do a case-sensitive find-and-replace)
 - Get the plugins/licenses described below if relevant (or make adjustments accordingly)
@@ -27,8 +25,6 @@ The development process is largely the same as my classic starterkit, with some 
 
 The `theme-vars.json` file is designed to be a single source of truth for the block editor, theme CSS, and theme PHP files to use for, well, theme variables. But for much of this to work, a compiling step is required.
 
-#### Compiling theme files
-
 A Gulpfile is included to:
 
 - Generate the [`theme.json`](https://developer.wordpress.org/block-editor/how-to-guides/themes/global-settings-and-styles/) file for the block editor; this includes disabling options I don't want to use* as well as updating the colour palette according to the `theme-vars.json` file
@@ -41,7 +37,48 @@ A Gulpfile is included to:
 
 Gulp needs to be installed globally: `npm install gulp-cli -g`.
 
-#### Code formatting and linting
+[Commitizen](https://github.com/commitizen/cz-cli) is set up to run with the `npm run commit` command.
+It will also lint staged files before proceeding to the commit options.
+
+## Creating blocks
+
+### File structure and approach
+
+Custom blocks are built using [Advanced Custom Fields Pro](https://www.advancedcustomfields.com/pro/). I use the [ACF Blocks](https://www.advancedcustomfields.com/resources/blocks/) feature along with custom code as needed to create and manage custom blocks, much like I did with Flexible Content in my [classic starterkit](https://github.com/doubleedesign/doublee-theme-starter-kit).
+
+Block output is done the PHP-based way. This allows me to reuse more of my pre-existing code, and I think will be more easily transferable when I eventually write a Vue or React-based version of this theme.
+
+A lot of core blocks are disabled in favour of custom blocks. 
+
+Custom blocks must be located in `blocks/custom`, and their names must use the namespace `custom/` for them to be found as expected automatically.
+
+### Block skeleton generator
+
+Using [generate-react-cli](https://www.npmjs.com/package/generate-react-cli) (even though there's no React involved) the skeleton of a new block can be generated from the command line using: `npx generate-react-cli component <block-name>`. Use `kebab-case` in this command.
+
+This creates the following files:
+- `blocks/custom/<block-name>/block.json` (block definition)
+- `blocks/custom/<block-name>/<block-name>.php` (output template)
+- `blocks/custom/<block-name>/<block-name>.scss` (block-specific styles, to be compiled into `<block-name>.css` in the `editor-css`  step in the Gulpfile)
+- `blocks/custom/<block-name>/fields.json` (empty ACF field group named for and assigned to the block).
+
+You will then need to:
+- Rename `fields.json` to `group_<block-name>.json` (ACF will save it with this name when you edit fields in the admin anyway; doing it yourself stops you ending up with a useless duplicate file)
+- If applicable, manually update the `title` field in `block.json` `fields.json` file to sentence or title case as these allow spaces (doing this automatically is in my mental roadmap but not a top priority)
+- Update `block.json` with the settings you want your block to have
+- Update the ACF fields for your block (whether in the JSON file or in the admin)
+- Compile the SCSS file to generate the `<block-name>.css` file (this is included in the `editor-css` Gulp task).
+- Test your block.
+ 
+
+### Troubleshooting
+
+Some places to go and things to note if you're having trouble with custom blocks following the above process:
+- `inc/cms/class-block-editor.php` 
+  - The `register_custom_blocks` function is set up to find all folders in `blocks/custom` and register them as blocks. It is expected that the folder will contain `block.json`, `<block-name>.php`, and `<block-name>.css` files (the latter generated from an `.scss` file also in the folder)
+  - The `allowed_blocks` function is set to find all blocks in `blocks/custom` and add them to the allow list. It is expected that the block's name, declared in its `block.json` file, will start with `custom/` (e.g. `custom/my-block`).
+
+## Code formatting and linting
 
 Scripts are set up in `package.json` for:
 
@@ -55,16 +92,8 @@ can easily override them in your own projects using PHPStorm's preferences dialo
 You can see the results of PHPStorm's inspections as you go using the Problems tool window. I configure mine to just
 check the theme and/or any custom plugins I'm working on in the project.
 
-#### Committing to Git
 
-[Commitizen](https://github.com/commitizen/cz-cli) is set up to run with the `npm run commit` command.
-It will also lint staged files before proceeding to the commit options.
-
-### File structure and approach
-
-Block output is done with custom PHP template parts, largely the "old" way rather than the new comments-based approach. This allows me to reuse more of my pre-existing code, and I think will be more easily transferrable when I eventually write a Vue or React-based version of this theme.
-
-### Licensing, plugins, and APIs
+## Licensing, plugins, and APIs
 
 To use this kit you will need:
 - Your own [Advanced Custom Fields Pro](https://www.advancedcustomfields.com/pro/) licence

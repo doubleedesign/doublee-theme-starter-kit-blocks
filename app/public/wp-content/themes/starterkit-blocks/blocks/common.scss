@@ -1,0 +1,10 @@
+@import '../../scss/variables';
+@import '../../scss/core/functions';
+@import '../../scss/core/bootstrap/mixins/breakpoints';
+@import '../../scss/core/mixins';
+
+.block,
+.pseudo-block {
+	@include gutter-padding-top(1.5);
+	@include gutter-padding-bottom(1.5);
+}

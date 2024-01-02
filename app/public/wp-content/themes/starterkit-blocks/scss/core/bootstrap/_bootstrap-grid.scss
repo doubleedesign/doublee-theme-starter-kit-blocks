@@ -11,7 +11,7 @@
 $include-column-box-sizing: true !default;
 
 @import 'functions';
-@import 'scss/variables';
+@import '../../variables';
 @import 'mixins/lists';
 @import 'mixins/breakpoints';
 @import 'mixins/container';

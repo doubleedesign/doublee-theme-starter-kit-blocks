@@ -1,5 +1,5 @@
 @mixin hover-focus-active {
-	
+
 	&:hover,
 	&:focus,
 	&:focus-visible,
@@ -9,7 +9,7 @@
 }
 
 @mixin hover-active {
-	
+
 	&:hover,
 	&:active {
 		@content;
@@ -17,7 +17,7 @@
 }
 
 @mixin keyboard-focus {
-	
+
 	&:focus-visible {
 		@content;
 	}
@@ -25,7 +25,7 @@
 
 @mixin gutter-padding-top($howmuch: 1) {
 	@each $breakpoint, $size in $grid-breakpoints {
-		@include media-breakpoint-up($size) {
+		@include media-breakpoint-up($breakpoint, $grid-breakpoints) {
 			padding-top: map-get($gutters, $breakpoint) * ($howmuch);
 		}
 	}
@@ -33,7 +33,7 @@
 
 @mixin gutter-padding-bottom($howmuch: 1) {
 	@each $breakpoint, $size in $grid-breakpoints {
-		@include media-breakpoint-up($size) {
+		@include media-breakpoint-up($breakpoint, $grid-breakpoints) {
 			padding-bottom: map-get($gutters, $breakpoint) * ($howmuch);
 		}
 	}
@@ -41,7 +41,7 @@
 
 @mixin gutter-margin-top($howmuch: 1) {
 	@each $breakpoint, $size in $grid-breakpoints {
-		@include media-breakpoint-up($size) {
+		@include media-breakpoint-up($breakpoint, $grid-breakpoints) {
 			margin-top: map-get($gutters, $breakpoint) * ($howmuch);
 		}
 	}
@@ -49,7 +49,7 @@
 
 @mixin gutter-margin-bottom($howmuch: 1) {
 	@each $breakpoint, $size in $grid-breakpoints {
-		@include media-breakpoint-up($size) {
+		@include media-breakpoint-up($breakpoint, $grid-breakpoints) {
 			margin-bottom: map-get($gutters, $breakpoint) * ($howmuch);
 		}
 	}

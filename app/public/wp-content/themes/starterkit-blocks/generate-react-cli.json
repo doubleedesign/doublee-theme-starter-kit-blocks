@@ -1,0 +1,24 @@
+{
+	"component": {
+		"default": {
+			"path": "blocks/custom",
+			"withStyle": true,
+			"withJson": true,
+			"withACF": true,
+			"customTemplates": {
+				"component": "blocks/_block-generator-templates/TemplateName.php",
+				"json": "blocks/_block-generator-templates/block.json",
+				"style": "blocks/_block-generator-templates/TemplateName.scss",
+				"acf": "blocks/_block-generator-templates/fields.json"
+			},
+			"withTest": false,
+			"withStory": false,
+			"withLazy": false
+		}
+	},
+	"usesTypeScript": false,
+	"usesCssModule": false,
+	"usesStyledComponents": false,
+	"cssPreprocessor": "css",
+	"testLibrary": "None"
+}
