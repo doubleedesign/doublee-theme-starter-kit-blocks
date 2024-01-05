@@ -44,13 +44,11 @@ It will also lint staged files before proceeding to the commit options.
 
 ### File structure and approach
 
-Custom blocks are built using [Advanced Custom Fields Pro](https://www.advancedcustomfields.com/pro/). I use the [ACF Blocks](https://www.advancedcustomfields.com/resources/blocks/) feature along with custom code as needed to create and manage custom blocks, much like I did with Flexible Content in my [classic starterkit](https://github.com/doubleedesign/doublee-theme-starter-kit).
+Custom blocks are built using  along with custom code as needed to create and manage custom blocks, much like I did with Flexible Content in my [classic starterkit](https://github.com/doubleedesign/doublee-theme-starter-kit).
 
-Block output is done the PHP-based way. This allows me to reuse more of my pre-existing code, and I think will be more easily transferable when I eventually write a Vue or React-based version of this theme.
+Block output is done the PHP-based way, using [Advanced Custom Fields Pro](https://www.advancedcustomfields.com/pro/)'s [ACF Blocks](https://www.advancedcustomfields.com/resources/blocks/) feature under the hood to handle using the same files in the editor and on the front end. While I am leaning on ACF to handle rendering, I'm leaning towards using inner blocks (particularly setting up default blocks and limiting allowed blocks) where possible for a more intuitive editing experience than having all data in ACF fields. (Big thanks to Michael LaRoy for his article [WordPress ACF Blocks with block.json and InnerBlocks](https://www.michaellroy.com/blog/using-advanced-custom-fields-pro-blocks-without-the-gutenberg-editor) which helped me a lot with this.)
 
-A lot of core blocks are disabled in favour of custom blocks. 
-
-Custom blocks must be located in `blocks/custom`, and their names must use the namespace `custom/` for them to be found as expected automatically.
+A lot of core blocks are disabled in favour of custom blocks. These must be located in `blocks/custom`, and their names must use the namespace `custom/` for them to be found as expected automatically.
 
 ### Block skeleton generator
 
@@ -58,15 +56,13 @@ Using [generate-react-cli](https://www.npmjs.com/package/generate-react-cli) (ev
 
 This creates the following files:
 - `blocks/custom/<block-name>/block.json` (block definition)
-- `blocks/custom/<block-name>/<block-name>.php` (output template)
+- `blocks/custom/<block-name>/index.php` (output template)
 - `blocks/custom/<block-name>/<block-name>.scss` (block-specific styles, to be compiled into `<block-name>.css` in the `editor-css`  step in the Gulpfile)
-- `blocks/custom/<block-name>/fields.json` (empty ACF field group named for and assigned to the block).
 
 You will then need to:
-- Rename `fields.json` to `group_<block-name>.json` (ACF will save it with this name when you edit fields in the admin anyway; doing it yourself stops you ending up with a useless duplicate file)
-- If applicable, manually update the `title` field in `block.json` `fields.json` file to sentence or title case as these allow spaces (doing this automatically is in my mental roadmap but not a top priority)
+- If applicable, manually update the `title` field in `block.json` file to sentence or title case as these allow spaces (doing this automatically is in my mental roadmap but not a top priority)
 - Update `block.json` with the settings you want your block to have
-- Update the ACF fields for your block (whether in the JSON file or in the admin)
+- Update `index.php` with the relevant output code, including allowed inner blocks, default blocks, etc
 - Compile the SCSS file to generate the `<block-name>.css` file (this is included in the `editor-css` Gulp task).
 - Test your block.
  
@@ -75,7 +71,7 @@ You will then need to:
 
 Some places to go and things to note if you're having trouble with custom blocks following the above process:
 - `inc/cms/class-block-editor.php` 
-  - The `register_custom_blocks` function is set up to find all folders in `blocks/custom` and register them as blocks. It is expected that the folder will contain `block.json`, `<block-name>.php`, and `<block-name>.css` files (the latter generated from an `.scss` file also in the folder)
+  - The `register_custom_blocks` function is set up to find all folders in `blocks/custom` and register them as blocks. It is expected that the folder will contain `block.json`, `index.php`, and `<block-name>.css` files (the latter generated from an `.scss` file also in the folder)
   - The `allowed_blocks` function is set to find all blocks in `blocks/custom` and add them to the allow list. It is expected that the block's name, declared in its `block.json` file, will start with `custom/` (e.g. `custom/my-block`).
 
 ## Code formatting and linting

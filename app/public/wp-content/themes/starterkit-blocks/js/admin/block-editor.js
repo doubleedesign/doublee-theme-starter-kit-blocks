@@ -28,9 +28,5 @@ function modifySettings(settings, name) {
 		return updated;
 	}
 
-	if (name === 'core/gallery') {
-		console.log(settings);
-	}
-
 	return settings;
 }

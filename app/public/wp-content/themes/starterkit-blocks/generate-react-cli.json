@@ -4,12 +4,10 @@
 			"path": "blocks/custom",
 			"withStyle": true,
 			"withJson": true,
-			"withACF": true,
 			"customTemplates": {
-				"component": "blocks/_block-generator-templates/TemplateName.php",
+				"component": "blocks/_block-generator-templates/index.php",
 				"json": "blocks/_block-generator-templates/block.json",
-				"style": "blocks/_block-generator-templates/TemplateName.scss",
-				"acf": "blocks/_block-generator-templates/fields.json"
+				"style": "blocks/_block-generator-templates/TemplateName.scss"
 			},
 			"withTest": false,
 			"withStory": false,

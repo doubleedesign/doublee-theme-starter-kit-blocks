@@ -7,8 +7,6 @@ class Starterkit_Block_Editor {
 
 	public function __construct() {
 		add_action('init', [$this, 'register_custom_blocks']);
-		add_filter('acf/settings/load_json', [$this, 'load_acf_field_groups_from_block_folders']);
-		add_action('acf/update_field_group', [$this, 'save_acf_field_groups_to_block_folders'], 1);
 		add_filter('allowed_block_types_all', [$this, 'allowed_blocks'], 10, 2);
 		add_action('enqueue_block_editor_assets', [$this, 'disable_editor_fullscreen_mode']);
 		add_action('after_setup_theme', [$this, 'disable_block_patterns']);
@@ -27,48 +25,11 @@ class Starterkit_Block_Editor {
 	 */
 	function register_custom_blocks(): void {
 		$block_folders = array_diff(scandir(dirname(__DIR__, 2) . '/blocks/custom/'), ['.', '..']);
-		foreach($block_folders as $folder) {
-			register_block_type(dirname(__DIR__, 2) . '/blocks/custom/' . $folder);
-		}
-	}
 
-
-	/**
-	 * Load ACF field groups for custom blocks from their folders
-	 *
-	 * @param $paths
-	 *
-	 * @return array
-	 */
-	function load_acf_field_groups_from_block_folders($paths): array {
-		$block_folders = array_diff(scandir(dirname(__DIR__, 2) . '/blocks/custom/'), ['.', '..']);
-		foreach($block_folders as $block) {
-			$paths[] = dirname(__DIR__, 2) . '/blocks/custom/' . $block;
-		}
-
-		return $paths;
-	}
-
-
-	/**
-	 * Save ACF field groups for custom blocks in their folders
-	 *
-	 * @param $group
-	 *
-	 * @return void
-	 */
-	function save_acf_field_groups_to_block_folders($group): void {
-		$block_folders = array_diff(scandir(dirname(__DIR__, 2) . '/blocks/custom/'), ['.', '..']);
-		foreach($block_folders as $block) {
-			if($group['key'] === 'group_' . $block) {
-				// initially remove this filter so it will not affect other groups
-				remove_filter('acf/settings/save_json', 'save_acf_field_groups_to_block_folders', 9999);
-
-				// override save path in this case
-				add_filter('acf/settings/save_json', function($path) use ($block) {
-					return dirname(__DIR__, 2) . '/blocks/custom/' . $block . '/';
-				}, 9999);
-			}
+		foreach($block_folders as $block_name) {
+			register_block_type(dirname(__DIR__, 2) . '/blocks/custom/' . $block_name);
+			// ACF takes care of the rendering rather than using render_callback.
+			// TODO See https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/inner-blocks/README.md for a starting point on removing this dependency
 		}
 	}
 
@@ -90,6 +51,11 @@ class Starterkit_Block_Editor {
 		return array_merge(
 			array_column($custom_block_types, 'name'),
 			array(
+				'core/heading',
+				'core/paragraph',
+				'core/button',
+				'core/buttons',
+				'core/freeform',
 				'core/columns',
 				'core/cover',
 				'core/image',

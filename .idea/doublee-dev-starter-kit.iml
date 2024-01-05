@@ -7,6 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/app/public/wp-content/plugins/breadcrumbs-doublee" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/app/public/wp-content/plugins/doublee-plugin-framework" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/app/public/wp-content/themes/starterkit" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/public/wp-content/themes/starterkit-blocks" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/conf/mysql" />
       <excludeFolder url="file://$MODULE_DIR$/conf/nginx" />
       <excludeFolder url="file://$MODULE_DIR$/conf/php" />

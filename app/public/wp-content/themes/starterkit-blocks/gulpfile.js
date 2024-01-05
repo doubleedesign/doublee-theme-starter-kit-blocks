@@ -121,13 +121,13 @@ gulp.task('editor-css', (done) => {
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('./'));
 
-	gulp.src('./partials/blocks/common.scss')
+	gulp.src('./blocks/common.scss')
 		.pipe(sourcemaps.init())
 		.pipe(sass())
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('./partials/blocks/'));
 
-	gulp.src('./partials/blocks/custom/**/*.scss')
+	gulp.src('./blocks/custom/**/*.scss')
 		.pipe(sourcemaps.init())
 		.pipe(sass())
 		.pipe(sourcemaps.write())

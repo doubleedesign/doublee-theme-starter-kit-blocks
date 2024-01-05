@@ -1,28 +1,30 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "custom/template-name",
-	"title": "TemplateName",
-	"description": "A custom template-name block that uses ACF fields.",
+	"name": "custom/call-to-action",
+	"title": "Call-to-action",
 	"textdomain": "starterkit",
+	"supports": {
+		"anchor": true,
+		"jsx": true
+	},
 	"acf": {
 		"mode": "preview",
 		"renderTemplate": "index.php"
 	},
-	"styles": [],
-	"variations": [],
-	"attributes": { },
 	"style": ["file:./template-name.css"],
 	"editorStyle": ["file:../../common.css", "file:./template-name.css"],
+	"styles": [
+		{
+			"name": "narrow",
+			"label": "Narrow"
+		}
+	],
+	"variations": [],
+	"attributes": { },
 	"category": "formatting",
 	"icon": "editor-code",
 	"keywords": [],
-	"supports": {
-		"anchor": true
-	},
-	"script": [],
-	"editorScript": [],
-	"viewScript": [],
 	"providesContext": { },
 	"usesContext": []
 }
