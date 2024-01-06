@@ -1,0 +1,27 @@
+{
+	"component": {
+		"default": {
+			"path": "blocks/custom",
+			"withStyle": false,
+			"withJson": true,
+			"withPhp": true,
+			"customTemplates": {
+				"component": "blocks/_block-generator-templates/TemplateName.vue",
+				"json": "blocks/_block-generator-templates/block.json",
+				"php": "blocks/_block-generator-templates/index.php"
+			},
+			"withTest": false,
+			"withStory": false
+		},
+		"core": {
+			"path": "blocks/core",
+			"withStyle": false,
+			"withJson": false,
+			"withPhp": true,
+			"customTemplates": {
+				"component": "blocks/_block-generator-templates/TemplateName.vue",
+				"php": "blocks/_block-generator-templates/index.php"
+			}
+		}
+	}
+}

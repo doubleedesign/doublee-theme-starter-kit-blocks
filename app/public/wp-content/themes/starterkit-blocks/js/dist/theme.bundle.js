@@ -1,119 +1,31 @@
-function initMobileMenu() {
-	const menu = document.querySelector('.site-header__nav');
-	const button = document.getElementById('header-menu-button');
-	const overlay = document.querySelector('.site-overlay');
+import { openBlock, createElementBlock, toDisplayString, createApp } from 'vue';
 
-	// Return early if the navigation doesn't exist.
-	if ((! menu) || ('undefined' === typeof button)) {
-		return;
-	}
+var script = {
+	data() {
+		return {
+			count: 0,
+		};
+	},
+};
 
-	button.addEventListener('click', function() {
-		toggleMenu();
-		toggleOverlay();
-	});
-
-	overlay.addEventListener('click', function() {
-		toggleMenu();
-		toggleOverlay();
-	});
-
-	function toggleMenu() {
-		menu.classList.toggle('site-header__nav--open');
-		if (button.getAttribute('aria-expanded') === 'true') {
-			button.setAttribute('aria-expanded', 'false');
-			button.querySelector('.fa-bars').style.display = 'block';
-			button.querySelector('.fa-times').style.display = 'none';
-		}
-		else {
-			button.setAttribute('aria-expanded', 'true');
-			button.querySelector('.fa-bars').style.display = 'none';
-			button.querySelector('.fa-times').style.display = 'block';
-		}
-	}
-
-	function toggleOverlay() {
-		overlay.classList.toggle('site-overlay--open');
-	}
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (openBlock(), createElementBlock("button", {
+    class: "test",
+    onClick: _cache[0] || (_cache[0] = $event => ($data.count++))
+  }, "You clicked me " + toDisplayString($data.count) + " times.", 1 /* TEXT */))
 }
 
-function initDropdownMenu() {
-	function isMobile() {
-		return window.matchMedia('(max-width:767px)').matches;
-	}
+script.render = render;
+script.__file = "blocks/custom/call-to-action/call-to-action.vue";
 
-	const topItems = document.querySelectorAll('.site-header__nav li.menu-item-has-children');
+// WP_VARS brings PHP variables into JS and is defined in inc/frontend/class-frontend.php
 
-	topItems.forEach((item) => {
-		const link = item.querySelector('.menu-dropdown-link');
-		const submenu = item.querySelector('.sub-menu');
-		const submenuHeight = submenu.scrollHeight;
+const vue = createApp(script);
 
-		submenu.ariaHidden = 'true';
-
-		link.addEventListener('click', (event) => {
-			if (isMobile()) {
-				event.preventDefault();
-
-				if (link.classList.contains('open')) {
-					link.classList.remove('open');
-					submenu.ariaHidden = 'true';
-					submenu.style.height = '0';
-				}
-				else {
-					link.classList.add('open');
-					submenu.ariaHidden = 'false';
-					submenu.style.height = `${ submenuHeight }px`;
-				}
-			}
-		});
-
-		item.addEventListener('mouseenter', () => {
-			if (! isMobile()) {
-				link.classList.add('open');
-				submenu.ariaHidden = 'false';
-				submenu.style.height = `${ submenuHeight }px`;
-			}
-		});
-
-		item.addEventListener('mouseleave', () => {
-			if (! isMobile()) {
-				link.classList.remove('open');
-				submenu.ariaHidden = 'true';
-				submenu.style.height = '0';
-			}
-		});
-	});
-
-	/*
-	$('.menu-dropdown-link').on('click', function(event) {
-		event.preventDefault();
-
-		$(this).toggleClass('open');
-		$(this).next('.sub-menu').slideToggle();
-
-		if (! isMobile()) {
-			$('.sub-menu').not($(this).next('.dropdown-menu')).slideUp();
-			$('.menu-dropdown-link').not(this).removeClass('open');
-		}
-	});
-
-	$('.site-header__nav .menu-item-has-children').on('mouseenter mouseleave', function() {
-		if (! isMobile()) {
-			$(this).find('.menu-dropdown-link').finish().toggleClass('open');
-			$(this).find('.dropdown-menu').finish().slideToggle();
-		}
-	}); */
+if (document.getElementById('app')) {
+	vue.mount('#app');
 }
 
-// eslint-disable-next-line no-unused-vars
-//import { initGoogleMap } from './theme/gmaps.js';
+export { vue };
 
-document.addEventListener('DOMContentLoaded', function() {
-
-	initMobileMenu();
-	initDropdownMenu();
-	//initGoogleMap(document.querySelector('.acf-map'));
-});
-
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiIiwic291cmNlcyI6WyJqcy90aGVtZS5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBlc2xpbnQtZGlzYWJsZS1uZXh0LWxpbmUgbm8tdW51c2VkLXZhcnNcclxuLy9pbXBvcnQgeyBhbmltYXRlSW50b1ZpZXcgfSBmcm9tICcuLi9ub2RlX21vZHVsZXMvQGRvdWJsZWVkZXNpZ24vYW5pbWF0ZS1pbnRvLXZpZXcvZGlzdC9hbmltYXRlLWludG8tdmlldy5qcyc7XHJcbi8vIG5vaW5zcGVjdGlvbiBFUzZVbnVzZWRJbXBvcnRzXHJcbmltcG9ydCB7IGluaXREcm9wZG93bk1lbnUsIGluaXRNb2JpbGVNZW51IH0gZnJvbSAnLi90aGVtZS9uYXZpZ2F0aW9uLmpzJztcclxuLy9pbXBvcnQgeyBpbml0R29vZ2xlTWFwIH0gZnJvbSAnLi90aGVtZS9nbWFwcy5qcyc7XHJcblxyXG5kb2N1bWVudC5hZGRFdmVudExpc3RlbmVyKCdET01Db250ZW50TG9hZGVkJywgZnVuY3Rpb24oKSB7XHJcblx0J3VzZSBzdHJpY3QnO1xyXG5cclxuXHRpbml0TW9iaWxlTWVudSgpO1xyXG5cdGluaXREcm9wZG93bk1lbnUoKTtcclxuXHQvL2luaXRHb29nbGVNYXAoZG9jdW1lbnQucXVlcnlTZWxlY3RvcignLmFjZi1tYXAnKSk7XHJcbn0pO1xyXG4iXSwiZmlsZSI6InRoZW1lLmJ1bmRsZS5qcyJ9
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiIiwic291cmNlcyI6WyJqcy90aGVtZS5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBXUF9WQVJTIGJyaW5ncyBQSFAgdmFyaWFibGVzIGludG8gSlMgYW5kIGlzIGRlZmluZWQgaW4gaW5jL2Zyb250ZW5kL2NsYXNzLWZyb250ZW5kLnBocFxyXG4vKiBnbG9iYWwgV1BfVkFSUyAqL1xyXG5cclxuLy8gZXNsaW50LWRpc2FibGUtbmV4dC1saW5lIG5vLXVudXNlZC12YXJzXHJcbi8vaW1wb3J0IHsgYW5pbWF0ZUludG9WaWV3IH0gZnJvbSAnLi4vbm9kZV9tb2R1bGVzL0Bkb3VibGVlZGVzaWduL2FuaW1hdGUtaW50by12aWV3L2Rpc3QvYW5pbWF0ZS1pbnRvLXZpZXcuanMnO1xyXG4vLyBub2luc3BlY3Rpb24gRVM2VW51c2VkSW1wb3J0c1xyXG4vL2ltcG9ydCB7IGluaXREcm9wZG93bk1lbnUsIGluaXRNb2JpbGVNZW51IH0gZnJvbSAnLi90aGVtZS9uYXZpZ2F0aW9uLmpzJztcclxuLy9pbXBvcnQgeyBpbml0R29vZ2xlTWFwIH0gZnJvbSAnLi90aGVtZS9nbWFwcy5qcyc7XHJcblxyXG4vL2RvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoJ0RPTUNvbnRlbnRMb2FkZWQnLCBmdW5jdGlvbigpIHtcclxuLy8ndXNlIHN0cmljdCc7XHJcblxyXG4vL2luaXRNb2JpbGVNZW51KCk7XHJcbi8vaW5pdERyb3Bkb3duTWVudSgpO1xyXG4vL2luaXRHb29nbGVNYXAoZG9jdW1lbnQucXVlcnlTZWxlY3RvcignLmFjZi1tYXAnKSk7XHJcbi8vfSk7XHJcblxyXG5pbXBvcnQgeyBjcmVhdGVBcHAgfSBmcm9tICd2dWUnO1xyXG5pbXBvcnQgQ2FsbFRvQWN0aW9uIGZyb20gJy4uL2Jsb2Nrcy9jdXN0b20vY2FsbC10by1hY3Rpb24vY2FsbC10by1hY3Rpb24udnVlJztcclxuXHJcbmV4cG9ydCBjb25zdCB2dWUgPSBjcmVhdGVBcHAoQ2FsbFRvQWN0aW9uKTtcclxuXHJcbmlmIChkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnYXBwJykpIHtcclxuXHR2dWUubW91bnQoJyNhcHAnKTtcclxufVxyXG5cclxuIl0sImZpbGUiOiJ0aGVtZS5idW5kbGUuanMifQ==

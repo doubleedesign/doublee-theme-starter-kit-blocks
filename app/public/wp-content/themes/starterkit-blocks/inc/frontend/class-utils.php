@@ -7,6 +7,30 @@ class Starterkit_Theme_Frontend_Utils {
 		// but having a constructor stops the file instantiating this class from complaining "expression result is not used anywhere"
 	}
 
+
+	/**
+	 * Custom block output, to be used both for initial block render
+	 * and innerBlocks output within those blocks
+	 *
+	 * @param $blocks
+	 *
+	 * @return void
+	 */
+	static function output_custom_blocks($blocks) {
+		foreach($blocks as $block) {
+			// Render both custom and core blocks using custom template parts where available
+			if(file_exists(get_template_directory() . '/blocks/' . $block['blockName'] . '/index.php')) {
+				get_template_part('blocks/' . $block['blockName'] . '/index', '', array(
+					'block' => $block
+				));
+			}
+			else {
+				echo render_block($block);
+			}
+		}
+	}
+
+	
 	/**
 	 * Get the visual page title, or if empty get the regular title
 	 * @return string

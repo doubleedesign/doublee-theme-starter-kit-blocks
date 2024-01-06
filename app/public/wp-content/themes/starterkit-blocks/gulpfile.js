@@ -1,7 +1,6 @@
 import gulp from 'gulp';
 import gru2 from 'gulp-rollup-2';
 import sassGlob from 'gulp-sass-glob';
-import concat from 'gulp-concat';
 import jsonToScss from '@valtech-commerce/json-to-scss';
 import { readFile, writeFile } from 'fs';
 import sass from 'gulp-dart-sass';
@@ -13,6 +12,7 @@ import babel from 'rollup-plugin-babel';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// Generate SCSS variables from  theme-vars.json file
 gulp.task('scss-variables', (done) => {
 	readFile(`./theme-vars.json`, 'utf8', async(error, theme) => {
 		if (error) {
@@ -33,6 +33,7 @@ gulp.task('scss-variables', (done) => {
 	})
 });
 
+// WordPress theme.json generator
 gulp.task('theme-json', async(done) => {
 	readFile(`./theme-vars.json`, 'utf8', async(error, data) => {
 		if (error) {
@@ -103,6 +104,7 @@ gulp.task('theme-json', async(done) => {
 	});
 });
 
+// Generate core theme style.css
 gulp.task('theme-css', (done) => {
 	gulp.src('scss/style.scss')
 		.pipe(sourcemaps.init())
@@ -113,6 +115,7 @@ gulp.task('theme-css', (done) => {
 	done();
 });
 
+// Subset of core shared styles to also be loaded in the editor
 gulp.task('editor-css', (done) => {
 	gulp.src('scss/styles-editor.scss')
 		.pipe(sourcemaps.init())
@@ -125,17 +128,12 @@ gulp.task('editor-css', (done) => {
 		.pipe(sourcemaps.init())
 		.pipe(sass())
 		.pipe(sourcemaps.write())
-		.pipe(gulp.dest('./partials/blocks/'));
-
-	gulp.src('./blocks/custom/**/*.scss')
-		.pipe(sourcemaps.init())
-		.pipe(sass())
-		.pipe(sourcemaps.write())
-		.pipe(gulp.dest('./partials/blocks/custom/'));
+		.pipe(gulp.dest('./blocks/'));
 
 	done();
 });
 
+// Style customisations for the WP admin more broadly
 gulp.task('admin-css', (done) => {
 	gulp.src('scss/styles-admin.scss')
 		.pipe(sourcemaps.init())
@@ -146,30 +144,9 @@ gulp.task('admin-css', (done) => {
 	done();
 });
 
-gulp.task('theme-js', (done) => {
-	gulp.src(['./js/theme/*.js', './js/theme.js'])
-		.pipe(sourcemaps.init())
-		.pipe(
-			gru2.rollup({
-				input: 'js/theme.js',
-				external: ['window'],
-				cache: true,
-				output: [
-					{
-						file: 'theme.bundle.js',
-						format: 'es',
-						globals: { window: 'window' },
-					},
-				],
-			}),
-		)
-		.pipe(sourcemaps.write())
-		.pipe(gulp.dest('./js/dist'));
-	done();
-});
-
-gulp.task('theme-js-vendor', (done) => {
-	gulp.src('./js/vendor/**/*.js')
+// Not currently using, but may need in the future
+/*gulp.task('theme-js-vendor', (done) => {
+	gulp.src('./js/vendor/!**!/!*.js')
 		.pipe(sourcemaps.init())
 		.pipe(concat('vendor.js'))
 		.pipe(
@@ -189,8 +166,10 @@ gulp.task('theme-js-vendor', (done) => {
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('js/dist'))
 	done();
-});
+});*/
 
+// Block editor customisations that have to be done in JS (rather than PHP or any block-level files)
+// Note that admin-hacks.js also exists for broader UI customisations that I haven't worked out a better way to do than hack the DOM, but that file doesn't need to be compiled
 gulp.task('editor-js', (done) => {
 	gulp.src(['./js/admin/block-editor.js'])
 		.pipe(sourcemaps.init())
@@ -232,6 +211,7 @@ gulp.task('editor-js', (done) => {
 	done();
 })
 
+// Run and watch all the things when the gulp command is run
 gulp.task('default', function() {
 	// CSS
 	gulp.watch('theme-vars.json', { ignoreInitial: false  }, gulp.series('scss-variables', 'theme-css', 'editor-css', 'admin-css'));
@@ -239,8 +219,6 @@ gulp.task('default', function() {
 	gulp.watch('scss/styles-admin.scss', { ignoreInitial: false }, gulp.series('admin-css'));
 
 	// JS
-	gulp.watch('js/theme/*.js', { ignoreInitial: false }, gulp.series('theme-js'));
-	gulp.watch('js/theme.js', { ignoreInitial: false }, gulp.series('theme-js'));
-	gulp.watch('js/vendor/[^_]*.js', { ignoreInitial: false }, gulp.series('theme-js-vendor'));
+	//gulp.watch('js/vendor/[^_]*.js', { ignoreInitial: false }, gulp.series('theme-js-vendor')); // not currently using
 	gulp.watch('js/admin/block-editor.js', { ignoreInitial: false }, gulp.series('editor-js'));
 });

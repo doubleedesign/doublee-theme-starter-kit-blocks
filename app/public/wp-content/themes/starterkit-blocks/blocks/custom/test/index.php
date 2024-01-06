@@ -4,31 +4,15 @@ if( ! isset($args['block'])) {
 	return;
 }
 
-$allowed_blocks = ['core/heading', 'core/paragraph', 'core/buttons'];
+$allowed_blocks = [];
 $default_blocks = array(
-	array(
-		'core/heading',
-		array(
-			'level'       => 2,
-			'placeholder' => 'Your heading here',
-			'className'   => 'block__call-to-action__heading'
-		),
-	),
-	array(
-		'core/paragraph',
-		array(
-			'placeholder' => 'Your call-to-action copy here'
-		)
-	),
-	array(
-		'core/buttons',
-	)
-);
+	array(),
+)
 ?>
 
-<section class="block block__call-to-action">
-	<?php // Back-end preview ?>
+<section class="block block__test">
 	<?php
+	// Back-end preview loaded by ACF
 	if(isset($is_preview) && $is_preview) { ?>
 		<InnerBlocks
 			template="<?php echo esc_attr(wp_json_encode($default_blocks)); ?>"
@@ -37,7 +21,8 @@ $default_blocks = array(
 		/>
 	<?php } ?>
 
-	<?php // Front-end output ?>
+	<?php
+	// Front-end output using custom Vue component ?>
 	<call-to-action>
 		<?php
 		$content = $args['block'];
@@ -46,8 +31,3 @@ $default_blocks = array(
 		} ?>
 	</call-to-action>
 </section>
-
-
-
-
-

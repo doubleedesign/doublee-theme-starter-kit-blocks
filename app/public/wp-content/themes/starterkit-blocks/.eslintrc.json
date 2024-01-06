@@ -19,6 +19,7 @@
 		"space-in-parens": ["error", "never"],
 		"array-bracket-spacing": ["error", "never"],
 		"object-curly-spacing": ["error", "always"],
+		"template-curly-spacing": ["error", "never"],
 		"computed-property-spacing": ["warn", "never"],
 		"space-before-function-paren": ["error", "never"],
 		"func-call-spacing": ["error", "never"],
