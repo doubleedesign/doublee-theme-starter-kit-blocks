@@ -1,4 +1,4 @@
-import * as Vue from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+import * as Vue from '../js/vendor/vue.esm-browser.js';
 import * as sass from 'https://jspm.dev/sass';
 
 const siteUrl = window.location.origin;

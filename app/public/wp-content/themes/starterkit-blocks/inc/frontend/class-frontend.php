@@ -25,7 +25,7 @@ class Starterkit_Frontend {
 	function enqueue_frontend(): void {
 		wp_enqueue_style('starterkit-style', get_stylesheet_uri(), array(), THEME_VERSION);
 
-		wp_enqueue_script('vue-loader', 'https://cdn.jsdelivr.net/npm/vue3-sfc-loader/dist/vue3-sfc-loader.js', array(), '1.0.0', true);
+		wp_enqueue_script('vue-loader', get_template_directory_uri() . '/js/vendor/vue3-sfc-loader.js', array(), '0.8.4', true);
 		wp_enqueue_script('theme-vue-blocks', get_template_directory_uri() . '/blocks/vue-blocks.js', array('vue-loader'), THEME_VERSION, true);
 
 		wp_enqueue_script('fontawesome', '//kit.fontawesome.com/328982870b.js', array(), '6.x', true);
