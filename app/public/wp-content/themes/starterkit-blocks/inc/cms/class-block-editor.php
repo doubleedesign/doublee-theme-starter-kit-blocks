@@ -8,13 +8,14 @@ class Starterkit_Block_Editor {
 	public function __construct() {
 		add_action('init', [$this, 'register_custom_blocks']);
 		add_filter('allowed_block_types_all', [$this, 'allowed_blocks'], 10, 2);
-		add_action('enqueue_block_editor_assets', [$this, 'disable_editor_fullscreen_mode']);
-		add_action('after_setup_theme', [$this, 'disable_block_patterns']);
+		add_action('init', [$this, 'allowed_block_patterns'], 10, 2);
+		add_filter('should_load_remote_block_patterns', '__return_false');
 		add_action('after_setup_theme', [$this, 'disable_block_template_editor']);
 		add_filter('block_editor_settings_all', [$this, 'disable_block_code_editor'], 10, 2);
 		add_action('enqueue_block_editor_assets', [$this, 'block_editor_scripts'], 100);
 		add_action('admin_enqueue_scripts', [$this, 'admin_scripts']);
 		add_filter('script_loader_tag', [$this, 'script_type_module'], 10, 3);
+		add_action('enqueue_block_editor_assets', [$this, 'disable_editor_fullscreen_mode']);
 	}
 
 
@@ -53,9 +54,6 @@ class Starterkit_Block_Editor {
 			array(
 				'core/heading',
 				'core/paragraph',
-				'core/button',
-				'core/buttons',
-				'core/freeform',
 				'core/columns',
 				'core/cover',
 				'core/image',
@@ -73,22 +71,22 @@ class Starterkit_Block_Editor {
 
 
 	/**
-	 * Disable fullscreen mode - keep dashboard menu visible
+	 * Disable some core Block Patterns for simplicity
+	 * and register custom patterns
+	 * Note: Also ensure loading of remote patterns is disabled using add_filter('should_load_remote_block_patterns', '__return_false');
+	 *
 	 * @return void
 	 */
-	function disable_editor_fullscreen_mode(): void {
-		$script = "window.onload = function() { const isFullscreenMode = wp.data.select( 'core/edit-post' ).isFeatureActive( 'fullscreenMode' ); if ( isFullscreenMode ) { wp.data.dispatch( 'core/edit-post' ).toggleFeature( 'fullscreenMode' ); } }";
-		wp_add_inline_script('wp-blocks', $script);
-	}
+	function allowed_block_patterns(): void {
+		unregister_block_pattern('core/social-links-shared-background-color');
+		unregister_block_pattern('core/query-offset-posts');
+		unregister_block_pattern('core/query-large-title-posts');
+		unregister_block_pattern('core/query-grid-posts');
+		unregister_block_pattern('core/query-standard-posts');
+		unregister_block_pattern('core/query-medium-posts');
+		unregister_block_pattern('core/query-small-posts');
 
-
-	/**
-	 * Disable Block Patterns functionality for simplicity
-	 * (For now, at least - will probably develop for this later)
-	 * @return void
-	 */
-	function disable_block_patterns(): void {
-		remove_theme_support('core-block-patterns');
+		// TODO: Register custom block patterns
 	}
 
 
@@ -164,5 +162,16 @@ class Starterkit_Block_Editor {
 
 		return $tag;
 	}
+
+
+	/**
+	 * Disable fullscreen mode - keep dashboard menu visible
+	 * @return void
+	 */
+	function disable_editor_fullscreen_mode(): void {
+		$script = "window.onload = function() { const isFullscreenMode = wp.data.select( 'core/edit-post' ).isFeatureActive( 'fullscreenMode' ); if ( isFullscreenMode ) { wp.data.dispatch( 'core/edit-post' ).toggleFeature( 'fullscreenMode' ); } }";
+		wp_add_inline_script('wp-blocks', $script);
+	}
+
 
 }

@@ -85,9 +85,6 @@ gulp.task('theme-json', async(done) => {
 							background: false
 						}
 					},
-					'core/image':{
-						variations: false
-					},
 					'core/cover': {
 						color: {
 							palette: wpFormat.colorPalette,

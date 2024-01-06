@@ -85,9 +85,6 @@
                     "background": false
                 }
             },
-            "core/image": {
-                "variations": false
-            },
             "core/cover": {
                 "color": {
                     "palette": [

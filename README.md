@@ -77,12 +77,13 @@ And the following files for core block output overrides:
 - `blocks/core/<block-name>/index.php` (WP template part)
 - `blocks/core/<block-name>/<block-name>.vue` (Vue single-file component)
 
-...essentially they're the same, just no `block.json` for core blocks because they've already been defined. Overriding some custom block features can be done in `theme.json`, which is loaded automatically by WordPress. I have set up a generator script for it in the Gulpfile (`gulp theme-json` to run it on its own) to more easily share things like colours that are defined in `theme-vars.json`.
+...essentially they're very similar, just no `block.json` for core blocks because they've already been defined, and editor output of core blocks is not overridden (so use this option wisely, lest your front-end output vary wildly from what's shown in the editor). Overriding some core block features can be done in `theme.json`, which is loaded automatically by WordPress. I have set up a generator script for it in the Gulpfile (`gulp theme-json` to run it on its own) to more easily share things like colours that are defined in `theme-vars.json`.
 
 You will then need to:
+- Register your Vue component in `blocks/vue-blocks.js` (in the `Vue.createApp({})` function)
 - If applicable, manually update the `title` field in `block.json` file to sentence or title case as these allow spaces (doing this automatically is in my mental roadmap but not a top priority)
 - For a custom block, update `block.json` with the settings you want your block to have
-- Update `index.php` with the relevant output code, including allowed inner blocks, default blocks, etc
+- Update `index.php` with the relevant output code, including allowed inner blocks, default blocks, etc for custom blocks
 - Fill in the props and data in the Vue component as needed
 - Test your block.
 

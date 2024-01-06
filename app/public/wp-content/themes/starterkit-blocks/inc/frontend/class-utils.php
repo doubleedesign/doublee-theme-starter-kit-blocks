@@ -16,8 +16,9 @@ class Starterkit_Theme_Frontend_Utils {
 	 *
 	 * @return void
 	 */
-	static function output_custom_blocks($blocks) {
+	static function output_custom_blocks($blocks): void {
 		foreach($blocks as $block) {
+			//error_log(print_r($block, true));
 			// Render both custom and core blocks using custom template parts where available
 			if(file_exists(get_template_directory() . '/blocks/' . $block['blockName'] . '/index.php')) {
 				get_template_part('blocks/' . $block['blockName'] . '/index', '', array(
@@ -30,7 +31,7 @@ class Starterkit_Theme_Frontend_Utils {
 		}
 	}
 
-	
+
 	/**
 	 * Get the visual page title, or if empty get the regular title
 	 * @return string

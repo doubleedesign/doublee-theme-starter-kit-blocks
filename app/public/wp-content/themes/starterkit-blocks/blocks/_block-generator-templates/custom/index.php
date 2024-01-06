@@ -1,6 +1,7 @@
 <?php
-// Array of block data should be passed in from get_template_part
-if( ! isset($args['block'])) {
+$is_editor = isset($is_preview) && $is_preview;
+// Array of block data should be passed in from get_template_part as $args['block']
+if( ! $is_editor && ! isset($args['block'])) {
 	return;
 }
 
@@ -10,10 +11,10 @@ $default_blocks = array(
 )
 ?>
 
-<section class="block block__test">
+<section class="block block__template-name">
 	<?php
 	// Back-end preview loaded by ACF
-	if(isset($is_preview) && $is_preview) { ?>
+	if($is_editor) { ?>
 		<InnerBlocks
 			template="<?php echo esc_attr(wp_json_encode($default_blocks)); ?>"
 			allowedBlocks="<?php echo esc_attr(wp_json_encode($allowed_blocks)); ?>"
@@ -23,11 +24,11 @@ $default_blocks = array(
 
 	<?php
 	// Front-end output using custom Vue component ?>
-	<call-to-action>
+	<template-name>
 		<?php
 		$content = $args['block'];
 		if($content['innerBlocks']) {
 			Starterkit_Theme_Frontend_Utils::output_custom_blocks($content['innerBlocks']);
 		} ?>
-	</call-to-action>
+	</template-name>
 </section>

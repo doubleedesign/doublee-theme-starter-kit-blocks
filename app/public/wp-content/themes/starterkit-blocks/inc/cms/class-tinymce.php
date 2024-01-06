@@ -39,7 +39,7 @@ class Starterkit_TinyMCE {
 	 */
 	function editor_css(): void {
 		add_editor_style('https://use.typekit.net/gwg0cmn.css');
-		add_editor_style(get_stylesheet_directory_uri() . '/css/styles-editor.css');
+		add_editor_style(get_stylesheet_directory_uri() . '/styles-editor.css');
 	}
 
 

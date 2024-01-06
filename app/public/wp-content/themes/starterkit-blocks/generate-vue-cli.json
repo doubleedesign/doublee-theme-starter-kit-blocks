@@ -8,7 +8,7 @@
 			"customTemplates": {
 				"component": "blocks/_block-generator-templates/TemplateName.vue",
 				"json": "blocks/_block-generator-templates/block.json",
-				"php": "blocks/_block-generator-templates/index.php"
+				"php": "blocks/_block-generator-templates/custom/index.php"
 			},
 			"withTest": false,
 			"withStory": false
@@ -20,7 +20,7 @@
 			"withPhp": true,
 			"customTemplates": {
 				"component": "blocks/_block-generator-templates/TemplateName.vue",
-				"php": "blocks/_block-generator-templates/index.php"
+				"php": "blocks/_block-generator-templates/core/index.php"
 			}
 		}
 	}
