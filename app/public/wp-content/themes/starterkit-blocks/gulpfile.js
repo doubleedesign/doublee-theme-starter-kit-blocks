@@ -52,6 +52,20 @@ gulp.task('theme-json', async(done) => {
 			})
 		}
 
+		const themeBackground = {
+			color: {
+				palette: wpFormat.colorPalette,
+				background: true
+			}
+		}
+
+		const themeText = {
+			color: {
+				palette: wpFormat.colorPalette,
+				text: true
+			}
+		}
+
 		const themeJson = {
 			version: 2,
 			"$schema": "https://schemas.wp.org/trunk/theme.json",
@@ -78,18 +92,10 @@ gulp.task('theme-json', async(done) => {
 				},
 				// Block-level overrides
 				blocks: {
-					'core/heading': {
-						color: {
-							palette: wpFormat.colorPalette,
-							text: true,
-							background: false
-						}
-					},
-					'core/cover': {
-						color: {
-							palette: wpFormat.colorPalette,
-						}
-					}
+					'core/heading': themeText,
+					'core/cover': themeBackground,
+					'core/media-text': themeBackground,
+					'custom/call-to-action': themeBackground
 				}
 			}
 		}

@@ -1,6 +1,6 @@
 <script lang="ts">
 export default {
-	name: 'TemplateName',
+	name: 'Copy',
 	props: {},
 	data() {
 		return {};
@@ -11,14 +11,14 @@ export default {
 </script>
 
 <template>
-	<section class="block block__template-name">
+	<section class="block block__copy">
 		<slot></slot>
 	</section>
 </template>
 
 <style lang="scss">
 @import '../../../scss/variables';
-.block__template-name {
+.block__copy {
 
 }
 </style>

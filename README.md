@@ -8,7 +8,32 @@ For classic themes using ACF Flexible Content, check out my (more mature) [class
 
 ---
 
-The development process using this starter kit is largely the same as my classic one, with some adaptations for the block editor.
+## Returning dev quick reference
+
+| I want to...                                                                   | Where to go                                                                                                                     |
+|--------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| Register a new custom block                                                    | [Block Skeleton Generator](#block-skeleton-generator)                                                                           |
+| Override the front-end output of a core block                                  | blocks/core/block-name/** or [Block Skeleton Generator](#block-skeleton-generator)                                              |
+| Edit CSS common to all or many blocks                                          | blocks/custom.scss*                                                                                                             |
+| Edit the front-end output or styling of a custom block                         | blocks/custom/block-name/index.php or block-name.vue (styling is SCSS in the Vue component)                                     |
+| Add options such as contained/fullwidth styles, colours, etc to a custom block | blocks/custom/block-name/block.json                                                                                             |
+| Change the allowed inner blocks of a custom block                              | blocks/custom/block-name/index.php                                                                                              |
+| Change the template/default blocks of a custom block                           | blocks/custom/block-name/index.php                                                                                              |
+| Change whether default blocks in a custom block are templateLocked             | blocks/custom/block-name/index.php (Add the prop to InnerBlocks)                                                                |
+| Change the allowed inner blocks of a core block                                | _Shit outta luck, as far as I'm aware._ You can change the template though by adding a variation and setting it as the default. |
+| Edit the global theme options such as allowed background colours               | theme-vars.json and/or theme.json via the `theme-json` and CSS Gulp tasks*                                                      |
+| Enable or disable certain block settings by default                            | theme.json*                                                                                                                     |
+| Override a core block's defaults with a custom variation                       | js/admin/block-editor.js                                                                                                        |
+| Change the allowed parents of a core block                                     | js/admin/block-editor.js                                                                                                        |
+| Change the allowed parents of a custom block                                   | blocks/custom/block-name/block.json                                                                                             |
+| Change the category a core block appears in                                    | js/admin/block-editor.js                                                                                                        |
+| Change the category a custom block appears in                                  | blocks/custom/block-name/block.json                                                                                             |
+| Add a new block category                                                       | inc/cms/class-block-editor.php                                                                                                  |
+| Add a new block pattern                                                        | inc/cms/class-block-editor.php                                                                                                  |
+| Make a cosmetic change to the back-end UI                                      | js/admin/admin-hacks.js, scss/styles-admin.scss*, or scss/styles-editor.scss*                                                   |
+| Allow a currently disallowed core block                                        | inc/cms/class-block-editor.php                                                                                                  |
+
+*Indicates tasks that have a compiler step. See [Build tools](#build-tools) for more information.
 
 ## Getting started
 
@@ -44,11 +69,41 @@ It will also lint staged files before proceeding to the commit options.
 
 ## Creating blocks
 
+### Key files quick reference
+- **inc/cms/class-block-editor.php**
+  - Registers blocks placed in the `/blocks/custom` folder
+  - Registers block categories
+  - Curates allowed blocks and block patterns
+  - Disables some features of the block editor such as code editing
+  - Disables full screen mode because IMO it's shitty UX to take over the whole screen, making the dashboard menu and admin bar disappear by default
+  - Enqueues the `block-editor.js` file and specifies its dependencies
+  - Enqueues the `admin-hacks.js` file and adds `type=module` to its script tag. 
+- **js/admin/block-editor.js**
+  - Registers variations to core blocks (this can't be done in PHP)
+  - Registers styles for core blocks (this _can_ be done in PHP, but I thought it made more sense to do it where the variations are defined)
+  - Unregisters some core styles and variations
+  - Adds parent blocks to some core blocks to enforce a consistent layout workflow
+  - Sorts core blocks into custom (or different core) categories. 
+- **js/admin/admin-hacks.js**
+  - Hacky interface changes that I couldn't find a way to do 'properly'.
+- **blocks/custom/<block-name>**
+  - Settings and output files for custom blocks.
+- **blocks/core/<block-name>**
+  - Files to override the front-end output of core blocks.
+- **styles-editor.css**
+  - Custom editor CSS, generated using SCSS (see [build tools](#build-tools))
+- **styles-admin.css**
+  - General CSS for the broader admin area, also generated using SCSS
+- **theme-vars.json**
+  - Theme variables for use in SCSS, JS, and `theme.json` (see [build tools](#build-tools))
+- **theme.json**
+  - WordPress standard `theme.json` file, generated using Gulp for easy sharing of settings (see [build tools](#build-tools)).
+
 ### File structure and approach
 
-Custom blocks are built using  along with custom code as needed to create and manage custom blocks, much like I did with Flexible Content in my [classic starterkit](https://github.com/doubleedesign/doublee-theme-starter-kit).
+My approach is currently geared towards minimising required build/compile steps. Remember when your client had a cPanel account and you could just go into the file manager to make a quick fix? Or when you could just FTP a file from and back up to the server? Pepperidge Farm remembers.
 
-Block output is done the PHP-based way, using [Advanced Custom Fields Pro](https://www.advancedcustomfields.com/pro/)'s [ACF Blocks](https://www.advancedcustomfields.com/resources/blocks/) feature under the hood to handle using the same files in the editor and on the front end. However, output does differ slightly as I am experimenting with using [Vue](https://vuejs.org/) for output, eliminating the need for an SCSS compile step for block-level styles as well as making other Vue features available.
+Block rendering is largely done the PHP-based way, using [Advanced Custom Fields Pro](https://www.advancedcustomfields.com/pro/)'s [ACF Blocks](https://www.advancedcustomfields.com/resources/blocks/) feature under the hood to handle using the same files in the editor and on the front end. However, output does differ slightly as I am experimenting with using [Vue](https://vuejs.org/) for output, eliminating the need for an SCSS compile step for block-level styles as well as making other Vue features available. So I guess that's not _so_ PHP-y, but it's "still a lot less buildy than React" according to Copilot's suggested completion of that sentence. 
 
 While I am leaning on ACF to handle rendering, I'm leaning towards using inner blocks (particularly setting up default blocks and limiting allowed blocks) where possible for a more intuitive editing experience than having all data in ACF fields. (Big thanks to Michael LaRoy for his article [WordPress ACF Blocks with block.json and InnerBlocks](https://www.michaellroy.com/blog/using-advanced-custom-fields-pro-blocks-without-the-gutenberg-editor) which helped me a lot with this.)
 
@@ -93,6 +148,8 @@ Some places to go and things to note if you're having trouble with custom blocks
 - `inc/cms/class-block-editor.php` 
   - The `register_custom_blocks` function is set up to find all folders in `blocks/custom` and register them as blocks. It is expected that the folder will contain `block.json`, `index.php`, and `<block-name>.css` files (the latter generated from an `.scss` file also in the folder)
   - The `allowed_blocks` function is set to find all blocks in `blocks/custom` and add them to the allow list. It is expected that the block's name, declared in its `block.json` file, will start with `custom/` (e.g. `custom/my-block`).
+- ACF-supported/rendered blocks (i.e., most of the custom blocks) should not have `attributes` in their `block.json`. It will cause the block registration to fail silently - WordPress will think it's registered if you look at the return value of `register_block_type(), but you won't see the block in the editor and you won't get an error message`. If you need attributes, you'll need to use the `render_callback` method instead of the ACF method for rendering.
+- If you initially get an error "_Your site doesn’t include support for the 'undefined' block. You can leave this block intact or remove it entirely"_ when inserting a custom block rendered using the ACF method, it should go away after adding default inner blocks in its `index.php`.
 
 ## Code formatting and linting
 

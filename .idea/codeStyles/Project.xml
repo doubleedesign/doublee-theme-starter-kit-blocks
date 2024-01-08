@@ -40,7 +40,6 @@
       <option name="KEEP_RPAREN_AND_LBRACE_ON_ONE_LINE" value="true" />
       <option name="BLANK_LINES_AFTER_FUNCTION" value="0" />
       <option name="SPACE_BEFORE_UNARY_NOT" value="true" />
-      <option name="SPACE_AFTER_UNARY_NOT" value="true" />
       <option name="SPACE_BETWEEN_TERNARY_QUEST_AND_COLON" value="true" />
       <option name="SPACE_BEFORE_CLOSURE_LEFT_PARENTHESIS" value="false" />
       <option name="SPACE_AROUND_ASSIGNMENT_IN_DECLARE" value="true" />

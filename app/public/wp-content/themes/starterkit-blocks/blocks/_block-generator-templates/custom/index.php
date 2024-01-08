@@ -1,7 +1,7 @@
 <?php
 $is_editor = isset($is_preview) && $is_preview;
 // Array of block data should be passed in from get_template_part as $args['block']
-if( ! $is_editor && ! isset($args['block'])) {
+if( !$is_editor && !isset($args)) {
 	return;
 }
 
@@ -18,17 +18,18 @@ $default_blocks = array(
 		<InnerBlocks
 			template="<?php echo esc_attr(wp_json_encode($default_blocks)); ?>"
 			allowedBlocks="<?php echo esc_attr(wp_json_encode($allowed_blocks)); ?>"
-			className="block__call-to-action__inner"
 		/>
 	<?php } ?>
 
 	<?php
-	// Front-end output using custom Vue component ?>
-	<template-name>
-		<?php
-		$content = $args['block'];
-		if($content['innerBlocks']) {
-			Starterkit_Theme_Frontend_Utils::output_custom_blocks($content['innerBlocks']);
-		} ?>
-	</template-name>
+	// Front-end output using custom Vue component
+	if( !$is_editor && isset($args['block'])) { ?>
+		<template-name>
+			<?php
+			$content = $args['block'];
+			if($content['innerBlocks']) {
+				Starterkit_Theme_Frontend_Utils::output_custom_blocks($content['innerBlocks']);
+			} ?>
+		</template-name>
+	<?php } ?>
 </section>

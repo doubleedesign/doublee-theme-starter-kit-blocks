@@ -4,6 +4,7 @@
 	"name": "custom/template-name",
 	"title": "TemplateName",
 	"description": "",
+	"category": "formatting",
 	"textdomain": "starterkit",
 	"acf": {
 		"mode": "preview",
@@ -11,14 +12,13 @@
 	},
 	"styles": [],
 	"variations": [],
-	"attributes": { },
-	"editorStyle": ["file:../../common.css"],
-	"category": "formatting",
-	"icon": "editor-code",
-	"keywords": [],
+	"parent": ["custom/section"],
 	"supports": {
 		"anchor": true
 	},
+	"editorStyle": ["file:../../common.css"],
+	"icon": "editor-code",
+	"keywords": [],
 	"script": [],
 	"editorScript": [],
 	"viewScript": [],

@@ -54,7 +54,7 @@
 		}
 	}
 
-	p.lead {
+	p.is-style-lead {
 		font-size: map-get($font-sizes, 'md');
 		font-weight: map-get($font-weights, 'bold');
 	}

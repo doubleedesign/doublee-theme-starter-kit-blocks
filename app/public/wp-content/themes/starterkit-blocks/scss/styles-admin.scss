@@ -20,3 +20,9 @@
 		}
 	}
 }
+
+.block-editor-block-types-list__list-item button[class*='editor-block-list-item-media-text/text-media'] {
+	svg {
+		transform: scaleX(-1);
+	}
+}

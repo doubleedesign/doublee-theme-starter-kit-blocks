@@ -7,6 +7,7 @@ class Starterkit_Block_Editor {
 
 	public function __construct() {
 		add_action('init', [$this, 'register_custom_blocks']);
+		add_filter('block_categories_all', [$this, 'register_block_categories']);
 		add_filter('allowed_block_types_all', [$this, 'allowed_blocks'], 10, 2);
 		add_action('init', [$this, 'allowed_block_patterns'], 10, 2);
 		add_filter('should_load_remote_block_patterns', '__return_false');
@@ -36,6 +37,23 @@ class Starterkit_Block_Editor {
 
 
 	/**
+	 * Register custom block categories
+	 *
+	 * @param $categories
+	 *
+	 * @return array
+	 */
+	function register_block_categories($categories): array {
+		$categories[] = array(
+			'slug'  => 'page-layout', // because the built-in Design category uses 'layout'
+			'title' => 'Layout'
+		);
+
+		return array_reverse($categories);
+	}
+
+
+	/**
 	 * Limit available core blocks for simplicity
 	 *
 	 * @param $allowed_block_types
@@ -52,19 +70,20 @@ class Starterkit_Block_Editor {
 		return array_merge(
 			array_column($custom_block_types, 'name'),
 			array(
+				'core/media-text-custom',
 				'core/heading',
 				'core/paragraph',
+				'core/list',
 				'core/columns',
+				'core/column',
+				'core/freeform',
 				'core/cover',
 				'core/image',
-				'core/table',
 				'core/media-text',
+				'core/table',
 				'core/separator',
-				'core-embed/twitter',
-				'core-embed/youtube',
-				'core-embed/facebook',
-				'core-embed/instagram',
-				'core-embed/vimeo',
+				'core/embed',
+				// allowed embed variations are curated using unregisterBlockVariation in JS because there isn't an equivalent PHP function
 			)
 		);
 	}
@@ -114,8 +133,8 @@ class Starterkit_Block_Editor {
 	 * @return void
 	 */
 	function block_editor_scripts(): void {
-		wp_enqueue_script('starterkit-block-editor-js',
-			get_template_directory_uri() . '/js/dist/editor.bundle.js',
+		//wp_enqueue_script('starterkit-block-editor-js', get_template_directory_uri() . '/js/dist/editor.bundle.js',
+		wp_enqueue_script('starterkit-block-editor-js', get_template_directory_uri() . '/js/admin/block-editor.js',
 			array(
 				'wp-dom',
 				'wp-dom-ready',

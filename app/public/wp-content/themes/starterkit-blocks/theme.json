@@ -81,8 +81,7 @@
                             "color": "#000"
                         }
                     ],
-                    "text": true,
-                    "background": false
+                    "text": true
                 }
             },
             "core/cover": {
@@ -143,7 +142,132 @@
                             "slug": "black",
                             "color": "#000"
                         }
-                    ]
+                    ],
+                    "background": true
+                }
+            },
+            "core/media-text": {
+                "color": {
+                    "palette": [
+                        {
+                            "name": "primary",
+                            "slug": "primary",
+                            "color": "#795EBD"
+                        },
+                        {
+                            "name": "secondary",
+                            "slug": "secondary",
+                            "color": "#00C9B9"
+                        },
+                        {
+                            "name": "accent",
+                            "slug": "accent",
+                            "color": "#C5488D"
+                        },
+                        {
+                            "name": "success",
+                            "slug": "success",
+                            "color": "#00C9B9"
+                        },
+                        {
+                            "name": "info",
+                            "slug": "info",
+                            "color": "#00A7C9"
+                        },
+                        {
+                            "name": "warning",
+                            "slug": "warning",
+                            "color": "#FF8D00"
+                        },
+                        {
+                            "name": "alert",
+                            "slug": "alert",
+                            "color": "#A63469"
+                        },
+                        {
+                            "name": "light",
+                            "slug": "light",
+                            "color": "#EDECF3"
+                        },
+                        {
+                            "name": "dark",
+                            "slug": "dark",
+                            "color": "#1B1063"
+                        },
+                        {
+                            "name": "white",
+                            "slug": "white",
+                            "color": "#FFF"
+                        },
+                        {
+                            "name": "black",
+                            "slug": "black",
+                            "color": "#000"
+                        }
+                    ],
+                    "background": true
+                }
+            },
+            "custom/call-to-action": {
+                "color": {
+                    "palette": [
+                        {
+                            "name": "primary",
+                            "slug": "primary",
+                            "color": "#795EBD"
+                        },
+                        {
+                            "name": "secondary",
+                            "slug": "secondary",
+                            "color": "#00C9B9"
+                        },
+                        {
+                            "name": "accent",
+                            "slug": "accent",
+                            "color": "#C5488D"
+                        },
+                        {
+                            "name": "success",
+                            "slug": "success",
+                            "color": "#00C9B9"
+                        },
+                        {
+                            "name": "info",
+                            "slug": "info",
+                            "color": "#00A7C9"
+                        },
+                        {
+                            "name": "warning",
+                            "slug": "warning",
+                            "color": "#FF8D00"
+                        },
+                        {
+                            "name": "alert",
+                            "slug": "alert",
+                            "color": "#A63469"
+                        },
+                        {
+                            "name": "light",
+                            "slug": "light",
+                            "color": "#EDECF3"
+                        },
+                        {
+                            "name": "dark",
+                            "slug": "dark",
+                            "color": "#1B1063"
+                        },
+                        {
+                            "name": "white",
+                            "slug": "white",
+                            "color": "#FFF"
+                        },
+                        {
+                            "name": "black",
+                            "slug": "black",
+                            "color": "#000"
+                        }
+                    ],
+                    "background": true
                 }
             }
         }

@@ -1,4 +1,5 @@
 <?php
+// For core blocks, we can control front-end output only in this file
 // Array of block data should be passed in from get_template_part as $args['block']
 if( ! isset($args['block'])) {
 	return;
